@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -3454,6 +3454,7 @@ input[type="button"].btn-block {
     justify-content: space-between; }
 
 .navbar-brand {
+  color: #fff;
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -8185,7 +8186,7 @@ h1, h2, h3, h4, h5,
     margin: 0 auto;
     padding: 0; }
   .ftco-navbar-light .navbar-brand {
-    color: #000000;
+    color: #fff;
     padding-top: .7rem;
     padding-bottom: .7rem; }
     .ftco-navbar-light .navbar-brand:hover, .ftco-navbar-light .navbar-brand:focus {
@@ -8203,7 +8204,7 @@ h1, h2, h3, h4, h5,
     padding-bottom: .7rem;
     padding-left: 20px;
     padding-right: 20px;
-    color: #000000;
+    color: #ffffff;
     font-weight: 400;
     opacity: 1 !important; }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link span {
@@ -8627,6 +8628,7 @@ h1, h2, h3, h4, h5,
         border: 1px solid transparent;
         background: #3e64ff;
         color: #fff; }
+.btn-fixed-width { min-width: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 
 .ftco-about .img-about {
   width: 100%;
@@ -9641,6 +9643,8 @@ textarea.form-control {
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
 
+  
+
 @-webkit-keyframes loader-rotate {
   100% {
     -webkit-transform: rotate(360deg);
@@ -9672,3 +9676,48 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+/* Resume 섹션을 깔끔한 흰색 창으로 통일 */
+#resume-section { 
+  background: #ffffff !important; 
+  color: #333333; 
+  padding: 100px 0;
+}
+
+#resume-section .heading { 
+  color: #3e64ff !important; 
+  font-weight: 800; 
+}
+
+#resume-section h2 { color: #000 !important; }
+#resume-section p { color: #666 !important; }
+#resume-section .date { color: #3e64ff; font-weight: 700; }
+#resume-section .resume-wrap { border-bottom: 1px solid #e6e6e6; }
+.academic-score { font-size: 18px; color: #3e64ff; }
+
+/* Skills 섹션 박스 스타일 */
+.skill-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000 !important;
+  border-bottom: 2px solid #3e64ff;
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+.skill-box {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  height: 100%;
+  border: 1px solid #eee;
+}
+.skill-box h4 { font-size: 16px; font-weight: 700; color: #3e64ff !important; margin-bottom: 10px; }
+.skill-box p { font-size: 14px; line-height: 1.5; margin-bottom: 0; }
+
+/* About 슬라이더 및 기타 */
+.btn-fixed-width { min-width: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.img-about { position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 10px; }
+.about-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.about-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s; }
+.about-slide.active { opacity: 1; }
