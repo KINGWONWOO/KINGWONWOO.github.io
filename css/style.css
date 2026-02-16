@@ -9689,35 +9689,350 @@ textarea.form-control {
   font-weight: 800; 
 }
 
-#resume-section h2 { color: #000 !important; }
-#resume-section p { color: #666 !important; }
-#resume-section .date { color: #3e64ff; font-weight: 700; }
-#resume-section .resume-wrap { border-bottom: 1px solid #e6e6e6; }
-.academic-score { font-size: 18px; color: #3e64ff; }
+/* --- Resume & Skills UI (White Box Theme) --- */
+#resume-section { background: #ffffff !important; padding: 100px 0; color: #333; }
+#resume-section h2.heading { color: #3e64ff !important; font-weight: 800; text-transform: uppercase; margin-bottom: 40px; }
+#resume-section .resume-wrap { border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
 
-/* Skills 섹션 박스 스타일 */
-.skill-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #000 !important;
-  border-bottom: 2px solid #3e64ff;
-  display: inline-block;
-  padding-bottom: 5px;
-  margin-bottom: 20px;
-}
-.skill-box {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  height: 100%;
-  border: 1px solid #eee;
-}
-.skill-box h4 { font-size: 16px; font-weight: 700; color: #3e64ff !important; margin-bottom: 10px; }
-.skill-box p { font-size: 14px; line-height: 1.5; margin-bottom: 0; }
+/* --- Skill Box Card Layout (위: 이름/아이콘, 아래: 설명) --- */
+.skill-category { border-top: 1px solid #f0f0f0; padding-top: 30px; }
+.skill-title { font-size: 18px; font-weight: 800; color: #3e64ff !important; margin-bottom: 25px; }
 
+.skill-box-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-box-card:hover {
+    transform: translateY(-5px);
+    border-color: #3e64ff;
+    box-shadow: 0 10px 30px rgba(62, 100, 255, 0.1);
+}
+
+.skill-box-top {
+  width: 100%;
+  height: 160px; /* 사진 영역 높이 (필요에 따라 조절 가능) */
+  background: #f4f4f4; /* 이미지 로딩 전 배경색 */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* 사진을 꽉 채우기 위해 패딩 제거 */
+}
+
+.skill-box-icon, .skill-icon-mini {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover; /* 영역을 빈틈없이 채움 (배경이 있는 이미지에 유리) */
+  /* 로고형 아이콘일 경우 'contain'으로 바꾸고 padding을 20px 정도 주면 예쁩니다. */
+  transition: transform 0.5s ease;
+}
+
+.skill-box-bottom {
+    padding: 20px;
+    background: #ffffff;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.skill-box-bottom h4 {
+    font-size: 17px;
+    font-weight: 800; /* 이름 강조 */
+    color: #111 !important;
+    margin-bottom: 0;
+}
+
+.skill-box-bottom p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #666 !important;
+    margin: 0;
+}
+
+/* --- Project Item Minimal --- */
+.project-item { margin-bottom: 30px; }
+.img-wrap { 
+    height: 450px; 
+    border-radius: 15px; 
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    overflow: hidden; 
+}
+.img-wrap .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #3e64ff; opacity: 0; transition: 0.3s; }
+.img-wrap:hover .overlay { opacity: 0.85; }
+.img-wrap .text { position: absolute; top: 50%; width: 100%; transform: translateY(-50%); opacity: 0; transition: 0.3s; color: #fff; }
+.img-wrap:hover .text { opacity: 1; }
+.img-wrap .text h3 { color: #fff !important; font-weight: 700; }
+
+/* --- About Slider --- */
+.img-about { position: relative; width: 100%; height: 550px; overflow: hidden; border-radius: 15px; }
+.about-slider, .about-slide { position: absolute; width: 100%; height: 100%; }
+.about-slide { background-size: cover; opacity: 0; transition: 1.5s; }
+.about-slide.active { opacity: 1; }
 /* About 슬라이더 및 기타 */
 .btn-fixed-width { min-width: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .img-about { position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 10px; }
 .about-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 .about-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s; }
 .about-slide.active { opacity: 1; }
+
+/* --- Project Guide Text --- */
+.project-guide {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+/* --- Project Card Modern Design --- */
+.project-card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  transition: 0.4s ease;
+  cursor: pointer;
+  border: 1px solid #eee;
+  height: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(62, 100, 255, 0.15);
+  border-color: #3e64ff;
+}
+
+.project-img-container {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.side-img { height: 220px; } /* 사이드 프로젝트용 높이 */
+
+.project-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(62, 100, 255, 0.8);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.project-card:hover .project-overlay { opacity: 1; }
+
+.overlay-text {
+  color: #fff;
+  font-weight: 700;
+  border: 2px solid #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+/* --- Summary Info Styling --- */
+.project-info-summary { padding: 25px; text-align: left; }
+.project-info-summary h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #111; }
+.project-info-summary h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+
+.tech-tags { margin-bottom: 15px; }
+.tech-tags span {
+  display: inline-block;
+  background: #f0f3ff;
+  color: #3e64ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.my-role { font-size: 14px; color: #666; margin-bottom: 0; }
+
+/* --- Modal Adjustments --- */
+.modal-content { border-radius: 20px; border: none; overflow: hidden; }
+.modal-header { background: #f8f9fa; border-bottom: 1px solid #eee; padding: 20px 30px; }
+.modal-body { padding: 30px; }
+.modal-body h4 { font-weight: 700; font-size: 18px; margin-top: 10px; }
+
+/* --- Navigation & Home --- */
+.ftco-navbar-light .navbar-brand { color: #ffffff !important; }
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link { color: #ffffff !important; }
+.navbar-brand span { color: #3e64ff; }
+
+/* --- Resume White Section --- */
+#resume-section { background: #ffffff !important; color: #333 !important; padding: 100px 0; }
+#resume-section .heading { color: #3e64ff !important; font-weight: 800; }
+#resume-section h2, #resume-section h3 { color: #111 !important; }
+#resume-section .resume-wrap { border-bottom: 1px solid #f0f0f0; }
+#navi ul li a { color: #333 !important; font-weight: 700; }
+#navi ul li a.current { color: #3e64ff !important; }
+
+/* --- Projects Expansion Layout --- */
+.detail-view-hidden { display: none; opacity: 0; }
+.detail-view-active { display: block; animation: fadeInUp 0.6s both; }
+.back-to-list { 
+    background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; 
+    border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: 600; 
+}
+.back-to-list:hover { background: #3e64ff; color: #fff; border-color: #3e64ff; }
+
+.side-mini-card { 
+    display: flex; align-items: center; padding: 10px; background: #fff; 
+    border: 1px solid #eee; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s;
+}
+.side-mini-card:hover { border-color: #3e64ff; transform: scale(1.02); }
+.side-mini-img { width: 70px; height: 50px; background-size: cover; border-radius: 4px; flex-shrink: 0; }
+.side-mini-info { padding-left: 10px; }
+.side-mini-info h4 { font-size: 13px; font-weight: 700; margin-bottom: 0; color: #000; }
+
+.project-card { background: #fff; border-radius: 12px; border: 1px solid #eee; cursor: pointer; transition: 0.4s; overflow: hidden; }
+.project-card:hover { transform: translateY(-10px); border-color: #3e64ff; }
+.project-img { height: 250px; background-size: cover; background-position: center; }
+.project-info { padding: 20px; }
+.project-info h3 { font-size: 19px; font-weight: 700; color: #000; }
+.tech-tags span { background: #f0f3ff; color: #3e64ff; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; }
+
+* 프로젝트 섹션 공통 */
+.guide-text { font-size: 14px; color: #aaa; margin-top: -10px; }
+/* --- 프로젝트 섹션 기본 스타일 --- */
+.project-sub-title { font-weight: 700; color: #333; border-left: 5px solid #3e64ff; padding-left: 15px; margin-top: 30px; }
+
+/* 전환 애니메이션 영역 */
+.transition-zone {
+    width: 100%;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.transition-zone.hidden {
+    display: none;
+    opacity: 0;
+    transform: scale(0.98);
+}
+.transition-zone.active {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 프로젝트 카드 디자인 */
+.custom-project-card {
+    background: #fff; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer;
+    transition: 0.3s; border: 1px solid #eee;
+}
+.custom-project-card:hover { transform: translateY(-5px); border-color: #3e64ff; box-shadow: 0 10px 25px rgba(62,100,255,0.1); }
+.cp-img { height: 240px; background-size: cover; background-position: center; }
+.cp-text { padding: 20px; }
+.cp-text h3 { font-size: 18px; font-weight: 700; color: #111; margin-bottom: 5px; }
+.cp-tech { color: #3e64ff; font-weight: 600; font-size: 12px; display: block; margin-bottom: 8px; }
+
+/* 확장된 상세 설명창 (더 넓게) */
+.expanded-main-content { 
+    background: #fff; 
+    border-radius: 20px; 
+    padding: 40px; 
+    position: relative; 
+    border: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.detail-nav-top { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 20px; }
+.btn-close-expand {
+    background: #111; color: #fff; border: none; padding: 8px 18px; 
+    border-radius: 5px; cursor: pointer; font-weight: 600; transition: 0.3s;
+}
+.btn-close-expand:hover { background: #3e64ff; }
+
+/* 상세 본문 스타일 */
+#project-detail-body h2 { font-weight: 800; color: #000; font-size: 28px; }
+.main-detail-img { width: 100%; border-radius: 10px; margin-bottom: 25px; }
+
+/* 사이드바 미니 카드 */
+.mini-card {
+    display: flex; align-items: center; background: #f8f9fa; padding: 10px;
+    border-radius: 8px; border: 1px solid #eee; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+}
+.mini-card:hover { border-color: #3e64ff; background: #fff; transform: translateX(5px); }
+.mini-img { width: 50px; height: 40px; border-radius: 4px; background-size: cover; flex-shrink: 0; }
+.mini-text h5 { font-size: 12px; font-weight: 700; margin: 0; color: #333; padding-left: 8px; }
+
+/* --- Buttons Animation Uniformity --- */
+.btn-fixed-width {
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 부드러운 애니메이션 */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-fixed-width:hover {
+  transform: translateY(-4px); /* 호버 시 위로 상승 */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-fixed-width:active {
+  transform: translateY(-1px); /* 클릭 시 살짝 눌림 */
+}
+
+/* --- Resume Quick View Style --- */
+.resume-expand-container {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  display: none;
+  overflow-y: auto;
+  padding: 50px 0;
+  backdrop-filter: blur(5px);
+}
+
+.resume-expand-container.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+.resume-content-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.btn-close-resume {
+  position: absolute; 
+  top: -45px; right: 0; 
+  background: transparent; 
+  color: #fff; border: none; 
+  font-size: 20px; cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- Project Transitions --- */
+.transition-zone { transition: opacity 0.4s ease, transform 0.4s ease; }
+.transition-zone.hidden { display: none; opacity: 0; }
+.transition-zone.active { display: block; opacity: 1; }
+
+.btn-resume-view {
+  background: #000 !important; /* 배경색: 현재 흰색 */
+  color: #ffffff !important;      /* 글자색: 현재 파란색 */
+  border: 2px solid #3e64ff !important; /* 테두리색 */
+}
+
+/* [마우스를 올렸을 때] */
+.btn-resume-view:hover {/* 배경색: 파란색으로 변경 */
+  color: #3e64ff !important;      /* 글자색: 흰색으로 변경 */
+  border-color: #3e64ff !important;
+}

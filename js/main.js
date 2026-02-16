@@ -480,3 +480,123 @@ var contentWayPoint = function() {
 contentWayPoint();
 
 });
+
+
+
+(function($) {
+  "use strict";
+
+  // 💡 상세 데이터 관리
+  const projectData = {
+      p1: {
+          title: "Noob: 1vs1 Multiplayer Battle",
+          tech: "Unreal Engine 5 / C++ / Steam SDK",
+          role: "메인 게임 로직 및 네트워크 프로그래밍",
+          img: "images/main-p1.jpg",
+          content: `
+              <img src="images/main-p1.jpg" class="main-detail-img shadow">
+              <h4>상세 구현</h4>
+              <p>멀티플레이어 환경에서의 동기화 문제를 해결하기 위해 Unreal의 Replication 시스템을 활용했습니다.</p>
+              <ul>
+                  <li>Steam Online Subsystem 매칭 시스템</li>
+                  <li>서버 사이드 판정 설계</li>
+              </ul>`
+      },
+      p2: {
+          title: "Light & Shadow: VFX Art",
+          tech: "Unreal Engine 5 / Niagara",
+          role: "비주얼 이펙트 및 시네마틱 연출",
+          img: "images/main-p2.jpg",
+          content: `
+              <img src="images/main-p2.jpg" class="main-detail-img shadow">
+              <h4>VFX 핵심</h4>
+              <p>Niagara 시스템을 활용하여 절차적 빛 효과를 구현했습니다.</p>`
+      },
+      p3: {
+          title: "QPI 소개팅 웹 서비스",
+          tech: "React / Node.js",
+          role: "프론트엔드 UI/UX 개발",
+          img: "images/side-project-1.png",
+          content: `<img src="images/side-project-1.png" class="main-detail-img shadow"><h4>개발 역량</h4><p>반응형 인터페이스 구축</p>`
+      }
+  };
+
+  // 프로젝트 확장 (멀미 방지 버전)
+  window.expandProject = function(id) {
+      const data = projectData[id];
+      const $grid = $('#project-grid-area, #project-header-area');
+      const $expandView = $('#expanded-project-view');
+
+      // 1. 기존 리스트 페이드 아웃 (위치 고정)
+      $grid.css('opacity', 0);
+      
+      setTimeout(() => {
+          $grid.hide();
+          
+          // 2. 내용 주입
+          $('#project-detail-body').html(`
+              <span style="color:#3e64ff; font-weight:700;">${data.tech}</span>
+              <h2 class="mt-2 mb-3">${data.title}</h2>
+              <p><strong>역할:</strong> ${data.role}</p>
+              <hr class="my-4">
+              <div>${data.content}</div>
+          `);
+
+          // 3. 사이드바 업데이트
+          let sideHTML = '';
+          for (let key in projectData) {
+              if (key !== id) {
+                  sideHTML += `
+                      <div class="mini-card" onclick="expandProject('${key}')">
+                          <div class="mini-img" style="background-image: url(${projectData[key].img})"></div>
+                          <div class="mini-text"><h5>${projectData[key].title}</h5></div>
+                      </div>`;
+              }
+          }
+          $('#expanded-side-list').html(sideHTML);
+
+          // 4. 상세 뷰 페이드 인
+          $expandView.show().removeClass('hidden').addClass('active');
+          // 강제 스크롤 이동 제거 (멀미 방지)
+      }, 400);
+  };
+
+  window.closeProject = function() {
+      const $grid = $('#project-grid-area, #project-header-area');
+      const $expandView = $('#expanded-project-view');
+
+      $expandView.removeClass('active').addClass('hidden');
+      
+      setTimeout(() => {
+          $expandView.hide();
+          $grid.show();
+          setTimeout(() => { $grid.css('opacity', 1); }, 50);
+      }, 400);
+  };
+
+  // 기존 템플릿 로직
+  $(window).on('load', function() { $('#ftco-loader').removeClass('show'); });
+  AOS.init({ duration: 800, easing: 'slide' });
+
+})(jQuery);
+
+// 이력서 보기 창 열기 함수
+window.expandResumeView = function() {
+  // 배경 스크롤 방지
+  $('body').css('overflow', 'hidden');
+  // 페이드 인 효과로 표시
+  $('#quick-resume-view').fadeIn(300).addClass('active');
+};
+
+// 이력서 보기 창 닫기 함수
+window.closeResumeView = function() {
+  // 배경 스크롤 허용
+  $('body').css('overflow', 'auto');
+  // 페이드 아웃 효과로 숨김
+  $('#quick-resume-view').fadeOut(300).removeClass('active');
+};
+
+// (추가 팁) ESC 키 누르면 이력서 창 닫기
+$(document).keyup(function(e) {
+   if (e.key === "Escape") closeResumeView();
+});
