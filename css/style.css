@@ -9716,6 +9716,7 @@ textarea.form-control {
 }
 
 .skill-box-top {
+  position: relative;
   width: 100%;
   height: 160px; /* 사진 영역 높이 (필요에 따라 조절 가능) */
   background: #f4f4f4; /* 이미지 로딩 전 배경색 */
@@ -9727,6 +9728,7 @@ textarea.form-control {
 }
 
 .skill-box-icon, .skill-icon-mini {
+  position: absolute;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover; /* 영역을 빈틈없이 채움 (배경이 있는 이미지에 유리) */
@@ -9772,7 +9774,12 @@ textarea.form-control {
 .img-wrap .text h3 { color: #fff !important; font-weight: 700; }
 
 /* --- About Slider --- */
-.img-about { position: relative; width: 100%; height: 550px; overflow: hidden; border-radius: 15px; }
+.img-about {
+  height: 600px !important; /* 원하시는 적절한 높이로 고정 가능 */
+  align-self: center;
+  border-radius: 15px;
+  overflow: hidden;
+}
 .about-slider, .about-slide { position: absolute; width: 100%; height: 100%; }
 .about-slide { background-size: cover; opacity: 0; transition: 1.5s; }
 .about-slide.active { opacity: 1; }
@@ -10035,4 +10042,68 @@ textarea.form-control {
 .btn-resume-view:hover {/* 배경색: 파란색으로 변경 */
   color: #3e64ff !important;      /* 글자색: 흰색으로 변경 */
   border-color: #3e64ff !important;
+}
+
+/* 스크롤 시 내비게이션 바 전체 텍스트 블랙 적용 */
+.ftco_navbar.scrolled {
+  background: #fff !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 로고 글자색 */
+.ftco_navbar.scrolled .navbar-brand {
+  color: #000 !important;
+}
+
+/* 모든 메뉴 텍스트 (Home, About, Resume 등) */
+.ftco_navbar.scrolled .nav-item .nav-link {
+  color: #000 !important;
+}
+
+/* 메뉴 글자에 마우스를 올렸을 때 (Hover) */
+.ftco_navbar.scrolled .nav-item .nav-link:hover {
+  color: #3e64ff !important; /* 포인트 컬러인 파란색으로 변경 */
+}
+
+/* 현재 활성화된 메뉴 글자 (Active) */
+.ftco_navbar.scrolled .nav-item.active > a {
+  color: #3e64ff !important;
+}
+
+/* 모바일용 햄버거 버튼 색상 */
+.ftco_navbar.scrolled .navbar-toggler {
+  color: #000 !important;
+  border-color: rgba(0,0,0,.1) !important;
+}
+.ftco_navbar.scrolled .oi-menu {
+  color: #000 !important;
+}
+
+@media (max-width: 767.98px) {
+  .img-about {
+      height: 400px !important;
+      margin-bottom: 30px;
+  }
+}
+
+/* 기본 이미지는 처음에 보임 */
+.skill-box-icon.normal {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* 호버 이미지는 처음에 숨김 */
+.skill-box-icon.hover {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* 카드에 마우스를 올렸을 때의 변화 */
+.skill-box-card:hover .skill-box-icon.normal {
+  opacity: 0; /* 기본 이미지 숨김 */
+}
+
+.skill-box-card:hover .skill-box-icon.hover {
+  opacity: 1; /* 호버 이미지 나타남 */
+  transform: scale(1.05); /* 약간 확대되는 효과 추가 */
 }

@@ -488,38 +488,80 @@ contentWayPoint();
 
   // 💡 상세 데이터 관리
   const projectData = {
-      p1: {
-          title: "Noob: 1vs1 Multiplayer Battle",
-          tech: "Unreal Engine 5 / C++ / Steam SDK",
-          role: "메인 게임 로직 및 네트워크 프로그래밍",
-          img: "images/main-p1.jpg",
-          content: `
-              <img src="images/main-p1.jpg" class="main-detail-img shadow">
-              <h4>상세 구현</h4>
-              <p>멀티플레이어 환경에서의 동기화 문제를 해결하기 위해 Unreal의 Replication 시스템을 활용했습니다.</p>
-              <ul>
-                  <li>Steam Online Subsystem 매칭 시스템</li>
-                  <li>서버 사이드 판정 설계</li>
-              </ul>`
-      },
-      p2: {
-          title: "Light & Shadow: VFX Art",
-          tech: "Unreal Engine 5 / Niagara",
-          role: "비주얼 이펙트 및 시네마틱 연출",
-          img: "images/main-p2.jpg",
-          content: `
-              <img src="images/main-p2.jpg" class="main-detail-img shadow">
-              <h4>VFX 핵심</h4>
-              <p>Niagara 시스템을 활용하여 절차적 빛 효과를 구현했습니다.</p>`
-      },
-      p3: {
-          title: "QPI 소개팅 웹 서비스",
-          tech: "React / Node.js",
-          role: "프론트엔드 UI/UX 개발",
-          img: "images/side-project-1.png",
-          content: `<img src="images/side-project-1.png" class="main-detail-img shadow"><h4>개발 역량</h4><p>반응형 인터페이스 구축</p>`
-      }
-  };
+    // --- Main Projects ---
+    noobgame: {
+        title: "Noob: Multiplayer Battle",
+        tech: "Unreal Engine 5 / C++ / Steam SDK",
+        role: "메인 로직 및 네트워크 리플리케이션",
+        img: "images/p-noob.jpg",
+        content: `<h4>Key Features</h4><ul><li>C++ 기반의 서버-클라이언트 리플리케이션 구현</li><li>Steam SDK를 활용한 P2P 매칭 및 세션 관리</li><li>모듈형 어빌리티 시스템 설계</li></ul>`
+    },
+    capstone_vr: {
+        title: "Capstone VR Training",
+        tech: "Unreal Engine 5 / VR / Meta Quest",
+        role: "가상 현실 훈련 시스템 설계",
+        img: "images/p-capstone.jpg",
+        content: `<h4>Key Features</h4><ul><li>OpenXR을 활용한 VR 상호작용 시스템 구축</li><li>실제 산업 현장 데이터를 기반으로 한 시뮬레이션 로직</li><li>사용자 퍼포먼스 데이터 트래킹 및 분석 기능</li></ul>`
+    },
+    persona: {
+        title: "Persona",
+        tech: "Unreal Engine 5 / AI / Character Design",
+        role: "AI 기반 페르소나 구현 프로젝트",
+        img: "images/p-persona.jpg",
+        content: `<h4>Key Features</h4><ul><li>LLM 연동을 통한 실시간 NPC 대화 시스템</li><li>상황별 감정 표현 및 애니메이션 블루프린트 연동</li><li>페르소나 데이터 세트를 활용한 캐릭터 성격 정의</li></ul>`
+    },
+    light_shadow: {
+        title: "Light & Shadow",
+        tech: "Unreal Engine 5 / Niagara / Sequencer",
+        role: "시각 효과 및 라이팅 연출",
+        img: "images/p-light.jpg",
+        content: `<h4>Key Features</h4><ul><li>Lumen을 활용한 실시간 전역 조명 최적화</li><li>Niagara 파티클을 이용한 고퀄리티 이펙트 제작</li><li>시퀀서를 활용한 시네마틱 연출 및 포스트 프로세싱</li></ul>`
+    },
+
+    // --- Side Projects ---
+    web_photobook: {
+        title: "Web Photobook",
+        tech: "React / Firebase",
+        role: "프론트엔드 개발",
+        img: "images/p-web.jpg",
+        content: `<p>개인 사진 기록을 위한 반응형 웹 포토북입니다. Firebase를 활용한 이미지 업로드 및 실시간 데이터 바인딩을 구현했습니다.</p>`
+    },
+    othello: {
+        title: "3D Modeling Othello With Chess",
+        tech: "Blender / Unreal Engine 5",
+        role: "에셋 제작 및 로직 구현",
+        img: "images/p-othello.jpg",
+        content: `<p>블렌더로 제작한 체스 기물을 활용한 3D 오셀로 게임입니다. 보드 게임 로직을 블루프린트로 설계했습니다.</p>`
+    },
+    Udemy: {
+        title: "Udemy Study 실습",
+        tech: "Unreal Engine 5 / VFX",
+        role: "이펙트 연구",
+        img: "images/p-niagara.jpg",
+        content: `<p>나이아가라의 벡터 필드와 GPU 파티클을 활용하여 자연 현상 및 마법 효과를 구현하는 스터디입니다.</p>`
+    },
+    nier: {
+        title: "Nier Style Scene",
+        tech: "Environment Art / Lighting",
+        role: "배경 연출",
+        img: "images/p-nier.jpg",
+        content: `<p>니어 오토마타 특유의 황량하면서도 몽환적인 포스트 아포칼립스 배경을 언리얼 엔진으로 재현한 씬입니다.</p>`
+    },
+    laonzena: {
+        title: "VR Laonzena",
+        tech: "Unity / VR / C#",
+        role: "VR 상호작용 개발",
+        img: "images/p-laonzena.jpg",
+        content: `<p>유니티 엔진을 활용한 VR 건축 시각화 프로젝트로, 공간 내부의 인터랙션을 담당했습니다.</p>`
+    },
+    face_app: {
+        title: "Face App",
+        tech: "Python / OpenCV / AI",
+        role: "AI 로직 개발",
+        img: "images/p-face.jpg",
+        content: `<p>파이썬과 오픈소스를 활용한 안면 인식 및 필터 적용 어플리케이션 프로젝트입니다.</p>`
+    }
+};
 
   // 프로젝트 확장 (멀미 방지 버전)
   window.expandProject = function(id) {
