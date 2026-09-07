@@ -1133,3 +1133,204 @@ $(document).keyup(function(e) {
     document.hidden ? stop() : start();
   });
 })();
+
+
+/* ======================================================================
+   히어로 와이어프레임 메시
+   외부 라이브러리 없이 아이코스피어(정이십면체 1회 분할)를 직접 투영해서
+   그립니다. 화면 밖으로 나가거나 다른 탭으로 이동하면 렌더링을 멈춥니다.
+   ====================================================================== */
+(function () {
+  "use strict";
+
+  var canvas = document.getElementById('hero-mesh');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var hero = document.getElementById('home-section');
+
+  /* ---------- 메시 생성 ---------- */
+  var t = (1 + Math.sqrt(5)) / 2;
+  var verts = [
+    [-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0],
+    [0, -1, t], [0, 1, t], [0, -1, -t], [0, 1, -t],
+    [t, 0, -1], [t, 0, 1], [-t, 0, -1], [-t, 0, 1]
+  ];
+  var faces = [
+    [0, 11, 5], [0, 5, 1], [0, 1, 7], [0, 7, 10], [0, 10, 11],
+    [1, 5, 9], [5, 11, 4], [11, 10, 2], [10, 7, 6], [7, 1, 8],
+    [3, 9, 4], [3, 4, 2], [3, 2, 6], [3, 6, 8], [3, 8, 9],
+    [4, 9, 5], [2, 4, 11], [6, 2, 10], [8, 6, 7], [9, 8, 1]
+  ];
+
+  var midCache = {};
+  function midpoint(a, b) {
+    var key = a < b ? a + '_' + b : b + '_' + a;
+    if (midCache[key] !== undefined) return midCache[key];
+    var va = verts[a], vb = verts[b];
+    verts.push([(va[0] + vb[0]) / 2, (va[1] + vb[1]) / 2, (va[2] + vb[2]) / 2]);
+    midCache[key] = verts.length - 1;
+    return midCache[key];
+  }
+
+  var sub = [];
+  faces.forEach(function (f) {
+    var a = midpoint(f[0], f[1]), b = midpoint(f[1], f[2]), c = midpoint(f[2], f[0]);
+    sub.push([f[0], a, c], [f[1], b, a], [f[2], c, b], [a, b, c]);
+  });
+  faces = sub;
+
+  // 구면으로 정규화
+  verts = verts.map(function (v) {
+    var l = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+    return [v[0] / l, v[1] / l, v[2] / l];
+  });
+
+  // 중복 없는 엣지 목록
+  var seen = {}, edges = [];
+  faces.forEach(function (f) {
+    [[f[0], f[1]], [f[1], f[2]], [f[2], f[0]]].forEach(function (e) {
+      var key = e[0] < e[1] ? e[0] + '_' + e[1] : e[1] + '_' + e[0];
+      if (!seen[key]) { seen[key] = 1; edges.push(e); }
+    });
+  });
+
+  /* ---------- 렌더링 ---------- */
+  var W = 0, H = 0, dpr = 1, radius = 0;
+  var ax = -0.42, ay = 0;
+  var projected = new Array(verts.length);
+  var raf = null, running = false, last = 0;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var r = canvas.getBoundingClientRect();
+    W = r.width; H = r.height;
+    if (!W || !H) return;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    radius = Math.min(W, H) * 0.36;
+  }
+
+  function project() {
+    var cx = Math.cos(ax), sx = Math.sin(ax);
+    var cy = Math.cos(ay), sy = Math.sin(ay);
+    var dist = 3.2;
+    for (var i = 0; i < verts.length; i++) {
+      var v = verts[i];
+      // Y축 회전
+      var x = v[0] * cy + v[2] * sy;
+      var z = -v[0] * sy + v[2] * cy;
+      // X축 회전
+      var y = v[1] * cx - z * sx;
+      z = v[1] * sx + z * cx;
+      var p = dist / (dist - z);
+      projected[i] = [W / 2 + x * radius * p, H / 2 + y * radius * p, z];
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var wire = hero && hero.classList.contains('vm-wire');
+
+    // 엣지 — 뒤쪽일수록 흐리게
+    for (var i = 0; i < edges.length; i++) {
+      var a = projected[edges[i][0]], b = projected[edges[i][1]];
+      var depth = (a[2] + b[2]) / 2;              // -1 (뒤) ~ 1 (앞)
+      var f = (depth + 1) / 2;                    // 0 ~ 1
+      ctx.strokeStyle = wire
+        ? 'rgba(53,166,238,' + (0.14 + f * 0.62).toFixed(3) + ')'
+        : 'rgba(160,205,240,' + (0.06 + f * 0.34).toFixed(3) + ')';
+      ctx.lineWidth = 0.6 + f * 0.7;
+      ctx.beginPath();
+      ctx.moveTo(a[0], a[1]);
+      ctx.lineTo(b[0], b[1]);
+      ctx.stroke();
+    }
+
+    // 버텍스 — 앞쪽만
+    for (var j = 0; j < projected.length; j++) {
+      var p = projected[j];
+      if (p[2] < 0.1) continue;
+      var fv = (p[2] + 1) / 2;
+      ctx.fillStyle = wire
+        ? 'rgba(120,200,255,' + (fv * 0.85).toFixed(3) + ')'
+        : 'rgba(200,225,250,' + (fv * 0.5).toFixed(3) + ')';
+      var s = 1.5 + fv * 1.2;
+      ctx.fillRect(p[0] - s / 2, p[1] - s / 2, s, s);
+    }
+  }
+
+  function frame(now) {
+    var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+    last = now;
+    ay += dt * 0.22;
+    ax += Math.sin(now / 7000) * dt * 0.06;
+    project();
+    draw();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (running) return;
+    running = true; last = 0;
+    resize();
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+  }
+
+  window.addEventListener('resize', function () { if (running) resize(); });
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+
+  // 애니메이션을 줄이도록 설정한 사용자는 한 장만 그리고 멈춤
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { resize(); project(); draw(); return; }
+
+  if (window.IntersectionObserver && hero) {
+    new IntersectionObserver(function (entries) {
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0.02 }).observe(hero);
+  } else {
+    start();
+  }
+})();
+
+
+/* ======================================================================
+   뷰포트 뷰 모드 전환 (LIT / UNLIT / WIREFRAME)
+   ====================================================================== */
+(function ($) {
+  "use strict";
+
+  var hero = document.getElementById('home-section');
+  var label = document.getElementById('vp-mode-label');
+  if (!hero) return;
+
+  var LABELS = { lit: 'LIT', unlit: 'UNLIT', wire: 'WIREFRAME' };
+
+  $(document).on('click', '.vb-mode', function () {
+    var mode = this.getAttribute('data-mode');
+    if (!LABELS[mode]) return;
+
+    hero.classList.remove('vm-lit', 'vm-unlit', 'vm-wire');
+    hero.classList.add('vm-' + mode);
+
+    // 와이어프레임에서는 영상이 거의 보이지 않으므로 디코딩을 멈춰 프레임을 확보
+    var video = document.getElementById('bg-video');
+    if (video) {
+        if (mode === 'wire') { video.pause(); }
+        else { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    }
+
+    $('.vb-mode').removeClass('active');
+    $(this).addClass('active');
+
+    if (label) label.textContent = LABELS[mode];
+  });
+
+  hero.classList.add('vm-lit');
+})(jQuery);
