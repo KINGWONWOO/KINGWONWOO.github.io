@@ -1,70 +1,95 @@
-<p align="center">
-  <h1 align="center">Developer's Portfolio ✨</h1>
+<h1 align="center">강원우 &middot; Game Client Programmer Portfolio</h1>
 
-  <p align="center">
-Profolio는 개발자를 위한, 쉽고 빠르게 제작 할 수 있는 정적 포트폴리오 템플릿 입니다. <br/>Github 페이지로 호스팅 됩니다. <br/>웹 사이트는 <a href="https://congchu.github.io/web-porfolio/">DEMO</a>에서 확인하실 수 있습니다.
-  <br/>
-  <br/> 더 많은 템플릿은 <a href="https://github.com/congchu/portfolio-collection" >portfolio-collection</a> 저장소에서 보실 수 있습니다.
-    <br/>
-    <br/>
-    <img src="https://img.shields.io/badge/-Bootstrap-05122A?style=flat&logo=bootstrap&logoColor=563D7C"/>
-    <img src="https://img.shields.io/badge/-CSS-05122A?style=flat&logo=CSS3&logoColor=1572B6"/>
-    <img src="https://img.shields.io/badge/-HTML-05122A?style=flat&logo=HTML5"/>
-  <br/>
-  <br/>
-  <img src="https://github.com/congchu/web-porfolio/blob/main/demo/20210428.gif?raw=true"/>
+<p align="center">
+  Unreal Engine 5 · C++ 기반 게임 클라이언트 개발자 <b>강원우</b>의 포트폴리오 사이트입니다.<br/>
+  <a href="https://kingwonwoo.github.io">https://kingwonwoo.github.io</a>
 </p>
 
-## Overview ⭐️
+<p align="center">
+  <img src="https://img.shields.io/badge/-Unreal%20Engine%205-05122A?style=flat&logo=unrealengine"/>
+  <img src="https://img.shields.io/badge/-C++-05122A?style=flat&logo=cplusplus&logoColor=00599C"/>
+  <img src="https://img.shields.io/badge/-Unity-05122A?style=flat&logo=unity"/>
+  <img src="https://img.shields.io/badge/-Blender-05122A?style=flat&logo=blender&logoColor=E87D0D"/>
+  <img src="https://img.shields.io/badge/-GitHub%20Pages-05122A?style=flat&logo=github"/>
+</p>
 
-- static website로 Github pages 활용한 웹 호스팅 가능
-- 개발자 맞춤형 포트폴리오 웹 페이지
-- 제작자 표기 시, 무료로 활용가능
+---
 
-## Prerequisites 🍪
+## 소개
 
-- PC에 git이 설치되어 있어야하며, Github 계정이 있어야 합니다.
-- HTML 문법을 몰라도 텍스트만 교체하여 활용 가능합니다.
-- HTML 문법을 알면 레이아웃이나 디자인을 변경할 수 있습니다.
-- CSS를 몰라도 제작 가능하지만, CSS에 친숙하다면 디자인도 자유롭게 변경할 수 있습니다.
+멀티플레이어 네트워크, VR 시뮬레이션, 실시간 VFX를 직접 구현해 온 게임 클라이언트 개발자입니다.
+이 저장소는 그 작업들을 정리한 정적 포트폴리오 사이트이며, GitHub Pages로 배포됩니다.
 
-## Setup And Deployment 🔧
+## 수록 프로젝트
 
-1. 내 프로젝트로 Fork합니다.
-2. repository를 clone하여 로컬로 내려받습니다.
+| 프로젝트 | 기술 스택 | 담당 |
+|---|---|---|
+| **Noob : Multiplayer Battle** | UE5 · C++ · Steam SDK | 서버-클라이언트 리플리케이션, 어빌리티 시스템 설계 |
+| **Capstone VR Training** | UE5 · OpenXR · Meta Quest | VR 상호작용 시스템, 모바일 GPU 최적화 |
+| **Persona** | UE5 · LLM API · AnimBP | 비동기 NPC 대화 파이프라인 |
+| Side Projects | Unity / Blender / Python / React | VFX 연구, 3D 에셋 제작, 영상 처리 등 |
 
-   ```
-   git clone {저장소URL}
-   ```
+## 사이트 구성
 
-3. 내용을 원하는대로 수정합니다.
-4. github commit & push 합니다.
-
-```bash
-git commit -m 'initial project'
-git push - u origin master
+```
+index.html          메인 페이지
+single.html         템플릿 잔여 페이지 (미사용)
+css/style.css       템플릿 원본 스타일 (수정하지 않음)
+css/portfolio.css   ★ 커스텀 스타일 — 디자인은 이 파일만 고치면 됩니다
+js/main.js          projectData(프로젝트) · learningData(책/강의) 및 인터랙션
+images/             프로젝트 썸네일, 스킬 아이콘, 배경 영상
 ```
 
-6. github Settings에서 pages로 이동하여, Source를 main branch로 바꿔줍니다.
-7. publish 되었다는 URL로 접속하여 확인합니다 (시간이 좀 걸리니, 5분정도 기다려주세요)
+**섹션 순서**
 
-## Documentation 📑
+`Hero → About → Skills → Projects → Learning(책·강의) → Background(학력·자격) → Contact`
 
-튜토리얼 문서는 [웹 포트폴리오 제작 튜토리얼](https://www.notion.so/cucus/85e3bec77d904f1fa282cec4756232c3)에서 확인해주세요.
+## 내용 수정 방법
 
-## Deploy History 🌳
+- **프로젝트 상세 내용** : `js/main.js` 상단의 `projectData` 객체를 수정합니다.
+  각 항목은 `title / tech / role / period / team / img / links / content` 로 구성되며,
+  `content`는 **문제 상황 → 내가 맡은 일 → 해결 방법 → 결과 → 배운 점** 순서로 작성합니다.
+- **프로젝트 카드** : `index.html` 의 `#projects-section` 영역을 수정합니다.
+- **스킬** : `index.html` 의 `#skills-section` 영역. 숙련도는 `Core / Working / Supporting` 3단계로 구분합니다.
+- **책 · 강의 목록** : `js/main.js` 맨 아래의 `learningData` 를 수정합니다.
 
-2021-12-28
+  ```js
+  { title:"제목", author:"저자 또는 플랫폼", year:"2025",
+    status:"done",          // done(완독/수료) | doing(진행 중) | plan(예정)
+    tag:"분류",              // 예: C++, 네트워크, VFX
+    note:"무엇을 얻었는지 한두 문장",
+    apply:"어디에 써먹었는지" }   // ← 면접관이 가장 눈여겨보는 항목
+  ```
+- **디자인(색·여백·폰트)** : `css/portfolio.css` 최상단의 CSS 변수(`--pf-primary` 등)를 바꾸면 전체 톤이 함께 바뀝니다.
 
-- 지킬 셋팅 제거
-- 커스텀 도메인 연결 제거
-- 데모 사이트 및 이미지 경로 변경
+### ⚠️ 배포 전 반드시 확인할 것
 
-2021-04-22
+1. **`<em class="ph">○○</em>` 로 표시된 자리를 실제 수치로 교체**하세요.
+   (분홍색 점선으로 강조되어 있어 화면에서 바로 눈에 띕니다. 남아 있으면 감점 요인입니다.)
+2. `projectData` 의 `links` 항목에 **GitHub 저장소 / 플레이 영상 URL** 을 채워 넣으세요.
+   `url: "#"` 인 항목은 화면에 `(준비 중)` 으로 표시됩니다.
+3. **`learningData` 는 예시 데이터입니다.** 실제 읽은 책 · 수강한 강의로 교체한 뒤,
+   `index.html` 의 `.sample-notice` 안내 박스(노란 배너)를 삭제하세요.
+4. `images/resume.jpg` 파일을 추가하면 "이력서 미리보기" 버튼에서 이미지가 뜹니다.
+   (없으면 PDF 링크 안내가 대신 표시됩니다.)
 
-- 전체 레이아웃 수정
-- header 사진 변경
+## 로컬 실행
 
-2021-04-20
+```bash
+git clone https://github.com/KINGWONWOO/KINGWONWOO.github.io.git
+cd KINGWONWOO.github.io
+python -m http.server 8000   # http://localhost:8000
+```
 
-- 프로젝트 생성
+## 배포
+
+`main` 브랜치에 push 하면 GitHub Pages가 자동으로 반영합니다. (최대 5분 소요)
+
+## Contact
+
+- Email : king_wonwoo@naver.com
+- GitHub : [@KINGWONWOO](https://github.com/KINGWONWOO)
+
+---
+
+<sub>본 사이트는 <a href="https://github.com/congchu/web-porfolio">congchu/web-porfolio</a> 템플릿을 기반으로 구조와 콘텐츠를 재구성한 것입니다.</sub>

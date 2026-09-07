@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-    <title>강원우 포트폴리오</title>
+    <title>강원우 | 게임 클라이언트 프로그래머 포트폴리오</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Unreal Engine 5 · C++ 기반 게임 클라이언트 프로그래머 강원우의 포트폴리오. 멀티플레이어 네트워크, VR 시뮬레이션, 실시간 VFX 프로젝트를 소개합니다.">
+    <meta name="author" content="강원우 (KangWonWoo)">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="강원우 | 게임 클라이언트 프로그래머 포트폴리오">
+    <meta property="og:description" content="UE5 · C++ 멀티플레이어, VR 시뮬레이션, 실시간 VFX 프로젝트 모음">
+    <meta property="og:image" content="images/p-noob.jpg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -17,6 +25,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- 커스텀 스타일은 이 파일 하나만 수정하면 됩니다 -->
+    <link rel="stylesheet" href="css/portfolio.css">
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -33,457 +43,557 @@
                 <ul class="navbar-nav nav ml-auto">
                     <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
                     <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-                    <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
-                    <li class="nav-item"><a href="#main-projects-section" class="nav-link"><span>Main Projects</span></a></li>
-                    <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Side Projects</span></a></li>
+                    <li class="nav-item"><a href="#skills-section" class="nav-link"><span>Skills</span></a></li>
+                    <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+                    <li class="nav-item"><a href="#learning-section" class="nav-link"><span>Learning</span></a></li>
                     <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    <section id="home-section" class="hero-wrap js-fullheight" style="position: relative; overflow: hidden;">
-        <video autoplay muted loop playsinline id="bg-video" 
-            style="position: absolute; min-width: 100%; min-height: 100%; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; z-index: -1;">
-            <source src="images/video.mp4" type="video/mp4"> Your browser does not support the video tag.
+
+    <!-- ========================== 1. HERO ========================== -->
+    <section id="home-section" class="hero-wrap js-fullheight">
+        <video class="hero-video" id="bg-video" autoplay muted loop playsinline preload="auto">
+            <source src="images/video.mp4" type="video/mp4">
         </video>
-        <div class="overlay" style="opacity: 0.4; background: #000;"></div>
-        <div class="container">
+        <div class="hero-scrim"></div>
+
+        <div class="container hero-container">
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
-                <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-center">
-                    <div class="text text-center">
-                        <span class="subheading" style="color: #fff; text-shadow: 0px 2px 4px rgba(0,0,0,0.5);">만나서 반갑습니다!</span>
-                        <h1 style="color: #fff; text-shadow: 0px 4px 10px rgba(0,0,0,0.5);">저는 강원우입니다!</h1>
+                <div class="col-lg-10 ftco-animate d-flex align-items-center">
+                    <div class="text text-center hero-copy">
+                        <span class="hero-role">Game Client Programmer</span>
+                        <h1 class="hero-name">강원우 <span>KangWonWoo</span></h1>
+                        <p class="hero-tagline">
+                            <strong>Unreal Engine 5와 C++</strong>로 멀티플레이어 게임을 만듭니다.<br>
+                            네트워크 리플리케이션부터 Niagara VFX까지 직접 구현하며,<br class="d-none d-md-block">
+                            기획·아트와 같은 언어로 대화하는 클라이언트 개발자입니다.
+                        </p>
+                        <div class="hero-chips">
+                            <span>Unreal Engine 5</span>
+                            <span>C++</span>
+                            <span>Network Replication</span>
+                            <span>Niagara VFX</span>
+                            <span>Unity / C#</span>
+                        </div>
+                        <div class="hero-cta">
+                            <a href="#projects-section" class="btn btn-hero-primary">대표 프로젝트 보기</a>
+                            <a target="_blank" rel="noopener"
+                                href="https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing"
+                                class="btn btn-hero-ghost">이력서</a>
+                            <a target="_blank" rel="noopener" href="https://github.com/KINGWONWOO"
+                                class="btn btn-hero-ghost">GitHub</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mouse">
-            <a href="#about-section" class="mouse-icon">
-                <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
-            </a>
+
+        <a href="#about-section" class="hero-scroll mouse-icon" aria-label="아래로 스크롤">
+            <span class="hero-scroll-label">SCROLL</span>
+            <span class="hero-scroll-line"></span>
+        </a>
+    </section>
+
+    <!-- ========================== 2. ABOUT ========================== -->
+    <section class="pf-section goto-here" id="about-section">
+        <div class="container">
+            <div class="pf-head ftco-animate">
+                <span class="pf-eyebrow">About</span>
+                <h2 class="pf-title">문제를 끝까지 붙잡는 개발자</h2>
+                <p class="pf-lead">기술을 나열하기보다, 무엇을 판단했고 그래서 어떻게 되었는지로 저를 소개합니다.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-visual ftco-animate">
+                    <div class="about-photo" style="background-image:url(images/about.jpg);"></div>
+                    <ul class="about-facts">
+                        <li><b>Name</b> <span>강원우 (KangWonWoo)</span></li>
+                        <li><b>Role</b> <span>Game Client Programmer</span></li>
+                        <li><b>Base</b> <span>부산 · 수도권 이주 가능</span></li>
+                        <li><b>Email</b> <span><a href="mailto:king_wonwoo@naver.com">king_wonwoo@naver.com</a></span></li>
+                        <li><b>GitHub</b> <span><a href="https://github.com/KINGWONWOO" target="_blank" rel="noopener">@KINGWONWOO</a></span></li>
+                    </ul>
+                </div>
+
+                <div class="about-body ftco-animate">
+                    <p class="about-summary">
+                        부산대학교 정보컴퓨터공학과를 졸업하고, 언리얼 엔진 5 기반 게임 클라이언트를 만들어 왔습니다.
+                        C++로 서버-클라이언트 리플리케이션을 직접 구현했고, VR·VFX처럼 엔진 깊은 곳을 건드리는 작업도
+                        피하지 않습니다. <strong>문제를 끝까지 붙잡고 동작하는 결과물로 만들어내는 것</strong>을 개발자의 기본기라고 생각합니다.
+                    </p>
+
+                    <div class="value-block">
+                        <h3>기술을 &lsquo;써 보고&rsquo; 말합니다</h3>
+                        <p>새 기능을 문서로만 읽고 넘기지 않습니다. Steam SDK 연동, LLM 기반 NPC 대화, Niagara GPU 파티클 모두
+                            작은 프로젝트로 직접 만들어 본 뒤 실제 프로젝트에 옮겼습니다. 도입 여부를 판단할 때
+                            &ldquo;해봤더니 이런 한계가 있었다&rdquo;고 말할 수 있는 개발자이고 싶습니다.</p>
+                    </div>
+
+                    <div class="value-block">
+                        <h3>완성되지 않으면 의미가 없다고 생각합니다</h3>
+                        <p>기술적으로 흥미로운 선택보다 일정 안에 안정적으로 돌아가는 선택을 우선합니다.
+                            Capstone VR에서도 표현 욕심을 줄이고 프레임 예산을 먼저 확보하는 쪽으로 방향을 잡았고,
+                            그 판단 덕분에 시연까지 문제없이 마쳤습니다.</p>
+                    </div>
+
+                    <div class="value-block">
+                        <h3>아트·기획과 같은 언어로 말합니다</h3>
+                        <p>Blender와 Photoshop을 직접 다룰 수 있어, 아트 요청을 &ldquo;안 된다&rdquo;가 아니라
+                            &ldquo;이렇게 하면 가능하다&rdquo;로 바꿔 전달합니다. 100명 규모 동아리에서 부회장을 맡으며
+                            이해관계가 다른 사람들을 조율해 본 경험이 협업의 기본기가 되었습니다.</p>
+                    </div>
+
+                    <div class="about-actions">
+                        <a target="_blank" rel="noopener"
+                           href="https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing"
+                           class="btn btn-pf-solid">이력서 다운로드</a>
+                        <a href="javascript:void(0);" class="btn btn-pf-line" onclick="expandResumeView()">이력서 미리보기</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+    <!-- ========================== 3. SKILLS ========================== -->
+    <section class="pf-section alt" id="skills-section">
         <div class="container">
-            <div class="row d-flex no-gutters">
-                <div class="col-md-6 col-lg-6 d-flex">
-                    <div class="img-about img d-flex align-items-stretch">
-                        <div class="overlay"></div>
-                        <div class="about-slider">
-                            <div class="about-slide active" style="background-image:url(images/about.jpg);"></div>
-                            <div class="about-slide" style="background-image:url(images/about_2.jpg);"></div>
-                            <div class="about-slide" style="background-image:url(images/about_3.jpg);"></div>
+            <div class="pf-head ftco-animate">
+                <span class="pf-eyebrow">Skills</span>
+                <h2 class="pf-title">할 수 있는 것과 해 본 것</h2>
+                <p class="pf-lead">
+                    숙련도를 <strong>주력 · 실무 활용 · 보조</strong> 3단계로 솔직하게 나눴습니다.
+                    모든 항목에는 실제로 그 기술을 사용한 프로젝트가 있습니다.
+                </p>
+            </div>
+
+            <div class="skill-group ftco-animate">
+                <div class="skill-tier-head">
+                    <h3>주력</h3><span class="skill-badge core">Core</span>
+                </div>
+                <p class="skill-tier-desc">혼자서 설계부터 디버깅까지 책임질 수 있는 영역입니다.</p>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/unreal_icon.png" class="normal" alt="Unreal Engine 5">
+                                <img src="images/unreal_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Unreal Engine 5</h4>
+                                <p>C++ / Blueprint 혼용 설계, GAS 기반 어빌리티 구조, Niagara·Lumen을 활용한 실시간 연출까지 직접 구현</p>
+                                <span class="pf-skill-proof">Noob · Capstone VR · Persona</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/cpp_icon.png" class="normal" alt="C++">
+                                <img src="images/cpp_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>C++</h4>
+                                <p>STL·스마트 포인터 기반 메모리 관리, 언리얼 리플렉션/GC 규칙 이해, 리플리케이션과 RPC를 직접 작성</p>
+                                <span class="pf-skill-proof">Noob : Multiplayer Battle</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 pl-md-5 py-5">
-                    <div class="row justify-content-start pb-3">
-                        <div class="col-md-12 heading-section ftco-animate">
-                            <h1 class="big">About</h1>
-                            <h2 class="mb-4">About Me</h2>
-                            
-                            <div class="mb-4 ftco-animate">
-                                <h3 style="font-size: 22px; font-weight: 700; color: #3e64ff; margin-bottom: 8px;">
-                                    "새로움을 즐기는 개발자"
-                                </h3>
-                                <p style="font-size: 16px; color: #444; line-height: 1.7;">
-                                    개인의 성장이 팀의 기술 경쟁력으로 직결된다고 믿습니다. 언리얼 엔진의 최신 기능과 생성형 AI 기술을 끊임없이 연구하며, 단순한 도입을 넘어 워크플로우 최적화를 통한 실질적인 프로젝트 효율 개선을 추구합니다. <br>
-                                </p>
+            </div>
+
+            <div class="skill-group ftco-animate">
+                <div class="skill-tier-head">
+                    <h3>실무 활용</h3><span class="skill-badge work">Working</span>
+                </div>
+                <p class="skill-tier-desc">프로젝트에서 실제로 결과물을 만들어 본 영역입니다.</p>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/unity_icon.png" class="normal" alt="Unity">
+                                <img src="images/unity_icon_hover.png" class="hover" alt="">
                             </div>
-                
-                            <div class="mb-4 ftco-animate">
-                                <h3 style="font-size: 22px; font-weight: 700; color: #3e64ff; margin-bottom: 8px;">
-                                    "비즈니스 가치를 우선하는 개발자"
-                                </h3>
-                                <p style="font-size: 16px; color: #444; line-height: 1.7;">
-                                    회사는 단순한 자아실현을 넘어 공동의 목표를 달성하는 공간임을 명확히 인지합니다. 무조건적인 고집보다는 비즈니스 방향성에 맞춰 유연하게 창의성을 발휘하는 최적의 해답을 찾는 것을 선호합니다.
-                                </p>
-                            </div>
-                
-                            <div class="mb-4 ftco-animate">
-                                <h3 style="font-size: 22px; font-weight: 700; color: #3e64ff; margin-bottom: 8px;">
-                                    "직군 간의 경계를 허무는 소통가"
-                                </h3>
-                                <p style="font-size: 16px; color: #444; line-height: 1.7;">
-                                    기획 및 아트 직군과 적극적으로 소통하며 기술적인 가교 역할을 수행합니다. 협업을 통해 프로젝트의 완성도를 높이는 과정에서 진정한 개발의 보람을 느낍니다.
-                                </p>
-                            </div>
-                            <ul class="about-info mt-4 px-md-0 px-2">
-                                <li class="d-flex"><span>Name:</span> <span>강원우</span></li>
-                                <li class="d-flex"><span>Address:</span> <span>부산시 서구 동대신동</span></li>
-                                <li class="d-flex"><span>Email:</span> <span>king_wonwoo@naver.com</span></li>
-                                <li class="d-flex"><span>Phone: </span> <span>+82-10-7598-7971</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="counter-wrap ftco-animate d-flex mt-md-3">
-                        <div class="text">
-                            <div class="resume-buttons d-flex flex-wrap">
-                                <a target="_blank" href="https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing" class="btn btn-primary py-3 px-3 btn-fixed-width mr-md-4">이력서 다운받기</a>
-                                <a href="javascript:void(0);" class="btn btn-resume-view py-3 px-3 btn-fixed-width" onclick="expandResumeView()">이력서 보기</a>
+                            <div class="pf-skill-body">
+                                <h4>Unity / C#</h4>
+                                <p>C# 컴포넌트 구조 설계와 VR 인터랙션 구현, 모바일·VR 환경 드로우콜 최적화 경험</p>
+                                <span class="pf-skill-proof">VR Laonzena</span>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/blender_icon.png" class="normal" alt="Blender">
+                                <img src="images/blender_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Blender</h4>
+                                <p>게임용 로우폴리 모델링·리깅, FBX 익스포트 파이프라인 정리로 아트 리소스를 직접 엔진에 반영</p>
+                                <span class="pf-skill-proof">3D Othello &amp; Chess</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/python_icon.png" class="normal" alt="Python">
+                                <img src="images/python_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Python</h4>
+                                <p>반복 작업 자동화 스크립트 작성, OpenCV 기반 영상·이미지 처리, 리소스 일괄 변환 도구 제작</p>
+                                <span class="pf-skill-proof">Face App</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/git_icon.png" class="normal" alt="Git">
+                                <img src="images/git_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Git / GitHub</h4>
+                                <p>브랜치 전략에 따른 협업, PR 기반 코드 리뷰, 대용량 바이너리를 고려한 저장소 운영</p>
+                                <span class="pf-skill-proof">팀 프로젝트 전반</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-group ftco-animate">
+                <div class="skill-tier-head">
+                    <h3>보조</h3><span class="skill-badge sub">Supporting</span>
+                </div>
+                <p class="skill-tier-desc">개발 속도를 높이기 위해 스스로 처리하는 주변 작업입니다.</p>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/ai_icon.png" class="normal" alt="Generative AI">
+                                <img src="images/ai_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Generative AI</h4>
+                                <p>Midjourney·LLM으로 컨셉 이미지와 더미 데이터를 빠르게 확보해 프로토타입 주기를 단축</p>
+                                <span class="pf-skill-proof">Persona · 프로토타이핑</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/photoshop_icon.png" class="normal" alt="Photoshop">
+                                <img src="images/photoshop_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Photoshop</h4>
+                                <p>UI 목업, 아이콘·텍스처 리터치 등 아트 리소스가 나오기 전 임시 에셋을 직접 제작</p>
+                                <span class="pf-skill-proof">UI 프로토타입</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/premiere_icon.png" class="normal" alt="Premiere Pro">
+                                <img src="images/premiere_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>Premiere Pro</h4>
+                                <p>플레이·시연 영상 편집으로 팀의 결과물을 외부에 전달 가능한 형태로 정리</p>
+                                <span class="pf-skill-proof">프로젝트 시연 영상</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="pf-skill-card">
+                            <div class="pf-skill-thumb">
+                                <img src="images/html_icon.png" class="normal" alt="HTML / CSS">
+                                <img src="images/html_icon_hover.png" class="hover" alt="">
+                            </div>
+                            <div class="pf-skill-body">
+                                <h4>HTML5 / CSS3</h4>
+                                <p>시맨틱 마크업과 Flex/Grid 반응형 레이아웃 구현. 본 포트폴리오 사이트를 직접 제작·배포</p>
+                                <span class="pf-skill-proof">Web Photobook · 본 사이트</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================== 4. PROJECTS ========================== -->
+    <section class="pf-section" id="projects-section">
+        <div class="container">
+            <div id="project-header-area">
+                <div class="pf-head ftco-animate">
+                    <span class="pf-eyebrow">Projects</span>
+                    <h2 class="pf-title">무엇을 만들었고, 왜 그렇게 만들었나</h2>
+                    <p class="pf-lead">
+                        각 프로젝트는 <strong>맡은 문제 → 내가 선택한 해결책 → 결과</strong> 순으로 정리했습니다.
+                        카드를 클릭하면 상세 내용이 펼쳐집니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-master-container" style="position: relative;">
+
+                <div id="project-grid-area" class="transition-zone active">
+                    <div class="pf-group-head ftco-animate">
+                        <h3>Main Projects</h3>
+                        <p>직접 설계하고 끝까지 구현한 대표 작업 3건</p>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="custom-project-card ftco-animate" onclick="expandProject('noobgame')">
+                                <div class="cp-img" style="background-image: url(images/p-noob.jpg);">
+                                    <span class="cp-badge">Multiplayer</span>
+                                </div>
+                                <div class="cp-text">
+                                    <h3>Noob : Multiplayer Battle</h3>
+                                    <span class="cp-tech">UE5 · C++ · Steam SDK</span>
+                                    <p class="cp-role">서버-클라이언트 리플리케이션 · 어빌리티 시스템 설계</p>
+                                    <p class="cp-result">최대 <em class="ph">○</em>인 동시 플레이 세션 안정 동작</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="custom-project-card ftco-animate" onclick="expandProject('capstone_vr')">
+                                <div class="cp-img" style="background-image: url(images/p-capstone.jpg);">
+                                    <span class="cp-badge">VR / Capstone</span>
+                                </div>
+                                <div class="cp-text">
+                                    <h3>Capstone VR Training</h3>
+                                    <span class="cp-tech">UE5 · OpenXR · Meta Quest</span>
+                                    <p class="cp-role">VR 상호작용 시스템 설계 · 퍼포먼스 최적화</p>
+                                    <p class="cp-result">Quest 실기 기준 <em class="ph">○○</em>FPS 유지</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="custom-project-card ftco-animate" onclick="expandProject('persona')">
+                                <div class="cp-img" style="background-image: url(images/p-persona.jpg);">
+                                    <span class="cp-badge">AI NPC</span>
+                                </div>
+                                <div class="cp-text">
+                                    <h3>Persona</h3>
+                                    <span class="cp-tech">UE5 · LLM API · AnimBP</span>
+                                    <p class="cp-role">실시간 NPC 대화 파이프라인 구현</p>
+                                    <p class="cp-result">응답 지연 <em class="ph">○.○</em>초 이내 유지</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pf-group-head ftco-animate">
+                        <h3>Side Projects &amp; Studies</h3>
+                        <p>기술을 익히기 위해 짧게 만들어 본 작업들</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('light_shadow')">
+                                <div class="cp-img" style="background-image: url(images/p-light.png);"></div>
+                                <div class="cp-text"><h5>Light &amp; Shadow</h5><span class="cp-tech">UE5 · Niagara</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('othello')">
+                                <div class="cp-img" style="background-image: url(images/p-othello.jpg);"></div>
+                                <div class="cp-text"><h5>3D Othello &amp; Chess</h5><span class="cp-tech">Blender · UE5</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('laonzena')">
+                                <div class="cp-img" style="background-image: url(images/p-laonzena.png);"></div>
+                                <div class="cp-text"><h5>VR Laonzena</h5><span class="cp-tech">Unity · VR</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('nier')">
+                                <div class="cp-img" style="background-image: url(images/p-nier.jpg);"></div>
+                                <div class="cp-text"><h5>Nier Style Scene</h5><span class="cp-tech">Lighting · Env</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('face_app')">
+                                <div class="cp-img" style="background-image: url(images/p-face.png);"></div>
+                                <div class="cp-text"><h5>Face App</h5><span class="cp-tech">Python · OpenCV</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('web_photobook')">
+                                <div class="cp-img" style="background-image: url(images/p-web.png);"></div>
+                                <div class="cp-text"><h5>Web Photobook</h5><span class="cp-tech">React · Firebase</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="custom-project-card side-type" onclick="expandProject('Udemy')">
+                                <div class="cp-img" style="background-image: url(images/p-udemy.png);"></div>
+                                <div class="cp-text"><h5>Niagara VFX Study</h5><span class="cp-tech">UE5 · GPU Particle</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="expanded-project-view" class="transition-zone hidden">
+                    <div class="expanded-main-content">
+                        <div class="detail-nav-top">
+                            <button class="btn-close-expand" onclick="closeProject()">✕ 리스트로 돌아가기</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8" id="project-detail-body"></div>
+                            <div class="col-lg-4">
+                                <div class="quick-switch-title">Quick Switch</div>
+                                <div id="expanded-side-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================== 5. LEARNING (책 · 강의) ========================== -->
+    <section class="pf-section alt" id="learning-section">
+        <div class="container">
+            <div class="pf-head ftco-animate">
+                <span class="pf-eyebrow">Learning</span>
+                <h2 class="pf-title">읽은 책과 수강한 강의</h2>
+                <p class="pf-lead">
+                    무엇을 배웠는지보다 <strong>그것을 어디에 써먹었는지</strong>를 함께 적었습니다.
+                </p>
+            </div>
+
+            <!-- ⚠️ 예시 데이터 안내 — 목록을 본인 것으로 교체한 뒤 아래 div를 삭제하세요 -->
+            <div class="sample-notice ftco-animate">
+                ⚠️ 아래 목록은 <strong>예시 데이터</strong>입니다.
+                <code>js/main.js</code> 의 <code>learningData</code> 를 실제로 읽은 책 · 수강한 강의로 교체한 뒤,
+                <code>index.html</code> 의 이 안내 박스를 삭제하세요.
+            </div>
+
+            <div class="text-center ftco-animate">
+                <div class="learn-tabs" id="learn-tabs"></div>
+            </div>
+
+            <div id="learn-books" class="learn-panel active">
+                <div class="row" id="learn-books-list"></div>
+            </div>
+            <div id="learn-courses" class="learn-panel">
+                <div class="row" id="learn-courses-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================== 6. BACKGROUND ========================== -->
+    <section class="pf-section tight" id="background-section">
+        <div class="container">
+            <div class="pf-head ftco-animate">
+                <span class="pf-eyebrow">Background</span>
+                <h2 class="pf-title">학력 &amp; 자격</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-7 mb-4">
+                    <div class="bg-card ftco-animate">
+                        <h3>Education</h3>
+                        <div class="bg-item">
+                            <span class="bg-date">2019 – 2025</span>
+                            <h4>부산대학교 정보컴퓨터공학과 (학사)</h4>
+                            <span class="bg-org">Pusan National University · 학점 4.02 / 4.5</span>
+                            <p>자료구조, 운영체제, 컴퓨터그래픽스, 네트워크 등 CS 기반 과목을 이수하며
+                                엔진 내부 동작을 원리 수준에서 이해할 수 있는 토대를 만들었습니다.
+                                졸업작품으로 VR 훈련 시뮬레이터를 개발했습니다.</p>
+                            <p><strong>중앙 댄스 동아리 부회장 (1년, 100명 규모)</strong> — 공연 기획과 팀 운영을 맡으며
+                                서로 다른 목표를 가진 사람들을 하나의 결과물로 모으는 조율 경험을 쌓았습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 mb-4">
+                    <div class="bg-card ftco-animate">
+                        <h3>Certificates</h3>
+                        <div class="bg-item">
+                            <span class="bg-date">2025.05</span>
+                            <h4>정보처리기사</h4>
+                            <span class="bg-org">한국산업인력공단</span>
+                        </div>
+                        <div class="bg-item">
+                            <span class="bg-date">2024.12</span>
+                            <h4>TOEIC 790</h4>
+                            <span class="bg-org">ETS</span>
+                            <p>영문 기술 문서와 해외 엔진 커뮤니티 자료를 원문으로 활용합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================== 7. CONTACT ========================== -->
+    <section class="pf-section alt" id="contact-section">
+        <div class="container">
+            <div class="pf-head ftco-animate">
+                <span class="pf-eyebrow">Contact</span>
+                <h2 class="pf-title">함께 만들고 싶습니다</h2>
+                <p class="pf-lead">
+                    포트폴리오에 대한 질문, 코드 리뷰, 채용 문의 모두 환영합니다.
+                    보통 <strong>24시간 이내</strong>에 답장드립니다.
+                </p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a class="contact-card ftco-animate" href="mailto:king_wonwoo@naver.com">
+                        <span class="contact-label">Email</span>
+                        <strong>king_wonwoo@naver.com</strong>
+                        <span class="contact-sub">가장 빠른 연락 수단입니다</span>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a class="contact-card ftco-animate" href="https://github.com/KINGWONWOO" target="_blank" rel="noopener">
+                        <span class="contact-label">GitHub</span>
+                        <strong>github.com/KINGWONWOO</strong>
+                        <span class="contact-sub">프로젝트 코드와 커밋 히스토리</span>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a class="contact-card ftco-animate" target="_blank" rel="noopener"
+                       href="https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing">
+                        <span class="contact-label">Resume</span>
+                        <strong>이력서 PDF</strong>
+                        <span class="contact-sub">경력 및 프로젝트 상세 기술서</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <div id="quick-resume-view" class="resume-expand-container hidden">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-10">
-					<div class="resume-content-card shadow-lg">
-						<button class="btn-close-resume" onclick="closeResumeView()">✕ 닫기</button>
-						<img src="images/resume.jpg" class="img-fluid" alt="Resume Image">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-    <section class="ftco-section ftco-no-pb goto-here" id="resume-section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <nav id="navi">
-                        <ul>
-                            <li><a href="#page-1">Education</a></li>
-                            <li><a href="#page-2">Skills</a></li>
-                            <li><a href="#page-3">Verification</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-md-9">
-                    <div id="page-1" class="page one">
-                        <h2 class="heading">Education</h2>
-                        <div class="resume-wrap d-flex ftco-animate">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-ideas"></span></div>
-                            <div class="text pl-3">
-                                <span class="date">2019 - 2025</span>
-                                <h2>부산대학교 정보컴퓨터공학 전공</h2>
-                                <span class="position">Pusan National University</span>
-                                <p class="mb-2 academic-score"><strong>학점: 4.02 / 4.5</strong></p>
-                                <p>전공 과정을 통해 컴퓨터공학의 핵심 지식(CS)을 체득하며, 새로운 기술 환경과 복잡한 업무에도 빠르게 적응할 수 있는 기술적 유연함을 길렀습니다.</p>
-                                <p>중앙 댄스 동아리 활동을 통해 다양한 사람들과 긴밀히 소통하고 협업하는 능력을 갖추었습니다. 이에 더해, 부회장직을 맡으며 1년간 100명 규모의 조직을 이끄는 경험을 통해 리더십을 체득하였습니다.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="page-2" class="page two">
-                        <h2 class="heading">Technical Skills</h2>
-                        
-                        <div class="skill-category mb-5 ftco-animate">
-                            <h3 class="skill-title">Game Engines</h3>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/unreal_icon.png" class="skill-box-icon normal" alt="Unreal Default">
-                                            <img src="images/unreal_icon_hover.png" class="skill-box-icon hover" alt="Unreal Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Unreal Engine 5</h4>
-                                            <p>Steam SDK 연동 멀티플레이어 구현 및 Niagara를 활용한 하이엔드 VFX 제작 가능</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/unity_icon.png" class="skill-box-icon normal" alt="Unity Default">
-                                            <img src="images/unity_icon_hover.png" class="skill-box-icon hover" alt="Unity Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Unity</h4>
-                                            <p>C# 스크립팅 기반 시스템 설계 및 모바일 환경 최적화 워크플로우 숙지</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category mb-5 ftco-animate">
-                            <h3 class="skill-title">Programming Languages</h3>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/cpp_icon.png" class="skill-box-icon normal" alt="C++ Default">
-                                            <img src="images/cpp_icon_hover.png" class="skill-box-icon hover" alt="C++ Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>C++</h4>
-                                            <p>메모리 최적화와 디자인 패턴을 고려한 안정적인 로직 설계 및 STL 활용</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/cs_icon.png" class="skill-box-icon normal" alt="C# Default">
-                                            <img src="images/cs_icon_hover.png" class="skill-box-icon hover" alt="C# Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>C#</h4>
-                                            <p>LINQ/Async 활용 및 업무 자동화 스크립트 작성을 통한 개발 생산성 향상</p>
-                                        </div>
-                                    </div>
-                                </div>
-								<div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/python_icon.png" class="skill-box-icon normal" alt="python Default">
-                                            <img src="images/python_icon_hover.png" class="skill-box-icon hover" alt="python Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Python</h4>
-                                            <p>메모리 최적화와 디자인 패턴을 고려한 안정적인 로직 설계 및 STL 활용</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category mb-5 ftco-animate">
-                            <h3 class="skill-title">Modeling & Design</h3>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/blender_icon.png" class="skill-box-icon normal" alt="blender Default">
-                                            <img src="images/blender_icon_hover.png" class="skill-box-icon hover" alt="blender Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Blender</h4>
-                                            <p>3D 리깅 및 애니메이션 제작, 게임 에셋 최적화 익스포트 파이프라인 이해</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/html_icon.png" class="skill-box-icon normal" alt="html Default">
-                                            <img src="images/html_icon_hover.png" class="skill-box-icon hover" alt="html Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>HTML5 / CSS3</h4>
-                                            <p>웹 표준을 준수하는 시맨틱 마크업 및 Flex/Grid 기반 반응형 UI 구현</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="skill-category ftco-animate">
-                            <h3 class="skill-title">ETC Tools</h3>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/git_icon.png" class="skill-box-icon normal" alt="git Default">
-                                            <img src="images/git_icon_hover.png" class="skill-box-icon hover" alt="git Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Git / GitHub</h4>
-                                            <p>GitHub을 활용한 버전 관리 및 코드 리뷰, 팀 협업 워크플로우 숙달</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/ai_icon.png" class="skill-box-icon normal" alt="ai Default">
-                                            <img src="images/ai_icon_hover.png" class="skill-box-icon hover" alt="ai Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Genrative AI</h4>
-                                            <p>Gen-AI(Midjourney) 리소스 생성 및 PS/PR을 활용한 영상/이미지 편집</p>
-                                        </div>
-                                    </div>
-                                </div>
-								<div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/photoshop_icon.png" class="skill-box-icon normal" alt="photoshop Default">
-                                            <img src="images/photoshop_icon_hover.png" class="skill-box-icon hover" alt="photoshop Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Photoshop</h4>
-                                            <p>Gen-AI(Midjourney) 리소스 생성 및 PS/PR을 활용한 영상/이미지 편집</p>
-                                        </div>
-                                    </div>
-                                </div>
-								<div class="col-md-6 mb-4">
-                                    <div class="skill-box-card">
-                                        <div class="skill-box-top">
-                                            <img src="images/premiere_icon.png" class="skill-box-icon normal" alt="premiere Default">
-                                            <img src="images/premiere_icon_hover.png" class="skill-box-icon hover" alt="premiere Hover">
-                                        </div>
-                                        <div class="skill-box-bottom">
-											<h4>Premiere Pro</h4>
-                                            <p>Gen-AI(Midjourney) 리소스 생성 및 PS/PR을 활용한 영상/이미지 편집</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="page-3" class="page three">
-                        <h2 class="heading">Verification</h2>
-                        <div class="resume-wrap d-flex ftco-animate">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-ideas"></span></div>
-                            <div class="text pl-3">
-                                <span class="date">2025.05</span>
-                                <h2>정보처리기사</h2>
-                                <span class="position">한국산업인력공단</span>
-                            </div>
-                        </div>
-                        <div class="resume-wrap d-flex ftco-animate">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-ideas"></span></div>
-                            <div class="text pl-3">
-                                <span class="date">2024.12</span>
-                                <h2>TOEIC 790</h2>
-                                <span class="position">ETS</span>
-                            </div>
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="resume-content-card shadow-lg">
+                        <button class="btn-close-resume" onclick="closeResumeView()">✕ 닫기</button>
+                        <img src="images/resume.jpg" class="img-fluid" alt="강원우 이력서"
+                             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=\'resume-fallback\'><p>이력서 미리보기 이미지를 준비 중입니다.</p><a class=\'btn btn-primary\' target=\'_blank\' rel=\'noopener\' href=\'https://drive.google.com/file/d/1uJg0Yun35HWc4YsEKfEX5L6Uyik5MPl_/view?usp=sharing\'>PDF로 열기</a></div>');">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-	<section class="ftco-section ftco-project" id="projects-section">
-        <div class="container-fluid px-md-5">
-            <div id="project-header-area">
-                <div class="row justify-content-center mb-5">
-                    <div class="col-md-12 heading-section text-center ftco-animate">
-                        <h1 class="big big-2">Portfolio</h1>
-                        <h2 class="mb-4">My Projects</h2>
-                        <p class="guide-text" style="color: #aaa; font-style: italic;">프로젝트를 클릭하면 그 자리에서 상세 내용이 나타납니다.</p>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="project-master-container" style="position: relative; min-height: 600px;">
-                
-                <div id="project-grid-area" class="transition-zone active">
-                    <h3 class="mb-4 project-sub-title" style="border-left: 5px solid #3e64ff; padding-left: 15px;">Main Work</h3>
-                    <div class="row mb-5">
-                        <div class="col-md-6 mb-4">
-                            <div class="custom-project-card" onclick="expandProject('noobgame')">
-                                <div class="cp-img" style="background-image: url(images/p-noob.jpg);"></div>
-                                <div class="cp-text">
-                                    <h3>Noob: Multiplayer Battle</h3>
-                                    <span class="cp-tech">UE5 / C++ / Steam SDK</span>
-                                    <p class="cp-role">메인 로직 및 네트워크 리플리케이션</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="custom-project-card" onclick="expandProject('capstone_vr')">
-                                <div class="cp-img" style="background-image: url(images/p-capstone.jpg);"></div>
-                                <div class="cp-text">
-                                    <h3>Capstone VR Training</h3>
-                                    <span class="cp-tech">UE5 / VR / Meta Quest</span>
-                                    <p class="cp-role">가상 현실 훈련 시스템 설계</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="custom-project-card" onclick="expandProject('persona')">
-                                <div class="cp-img" style="background-image: url(images/p-persona.jpg);"></div>
-                                <div class="cp-text">
-                                    <h3>Persona</h3>
-                                    <span class="cp-tech">UE5 / AI / Character Design</span>
-                                    <p class="cp-role">AI 기반 페르소나 구현 프로젝트</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <h3 class="mb-4 project-sub-title" style="border-left: 5px solid #adb5bd; padding-left: 15px;">Side Work</h3>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('web_photobook')">
-                                <div class="cp-img" style="background-image: url(images/p-web.png);"></div>
-                                <div class="cp-text"><h5>Web Photobook</h5><span class="cp-tech">React</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('light_shadow')">
-                                <div class="cp-img" style="background-image: url(images/p-light.png);"></div>
-                                <div class="cp-text"><h5>Light & Shadow</h5><span class="cp-tech">UE5 / Niagara / Sequencer</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('othello')">
-                                <div class="cp-img" style="background-image: url(images/p-othello.jpg);"></div>
-                                <div class="cp-text"><h5>3D Othello & Chess</h5><span class="cp-tech">Blender / UE5</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('Udemy')">
-                                <div class="cp-img" style="background-image: url(images/p-udemy.png);"></div>
-                                <div class="cp-text"><h5>Udemy Study 실습</h5><span class="cp-tech">UE5 / VFX</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('nier')">
-                                <div class="cp-img" style="background-image: url(images/p-nier.jpg);"></div>
-                                <div class="cp-text"><h5>Nier Style Scene</h5><span class="cp-tech">Environment Art</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('laonzena')">
-                                <div class="cp-img" style="background-image: url(images/p-laonzena.png);"></div>
-                                <div class="cp-text"><h5>VR Laonzena</h5><span class="cp-tech">Unity / VR</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="custom-project-card side-type" onclick="expandProject('face_app')">
-                                <div class="cp-img" style="background-image: url(images/p-face.png);"></div>
-                                <div class="cp-text"><h5>Face App</h5><span class="cp-tech">Python / AI</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <div id="expanded-project-view" class="transition-zone hidden">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-11 col-lg-12">
-                            <div class="expanded-main-content shadow-lg">
-                                <div class="detail-nav-top">
-                                    <button class="btn-close-expand" onclick="closeProject()">✕ 리스트로 돌아가기</button>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-8" id="project-detail-body"></div>
-                                    <div class="col-lg-4 border-left">
-                                        <h4 class="mb-4 font-weight-bold" style="color: #3e64ff; font-size: 16px;">Quick Switch</h4>
-                                        <div id="expanded-side-list"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-            </div>
-        </div>
-    </section>
-
-    <footer class="ftco-footer ftco-section">
+    <footer class="ftco-footer">
         <div class="container text-center">
-            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> KangWonWoo</p>
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> KangWonWoo · Built with HTML, CSS &amp; GitHub Pages</p>
         </div>
     </footer>
 
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#3e64ff" />
         </svg></div>
 
     <script src="js/jquery.min.js"></script>
