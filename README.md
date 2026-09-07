@@ -33,11 +33,10 @@
 
 ```
 index.html          메인 페이지
-single.html         템플릿 잔여 페이지 (미사용)
 css/style.css       템플릿 원본 스타일 (수정하지 않음)
 css/portfolio.css   ★ 커스텀 스타일 — 디자인은 이 파일만 고치면 됩니다
 js/main.js          projectData(프로젝트) · learningData(책/강의) 및 인터랙션
-images/             프로젝트 썸네일, 스킬 아이콘, 배경 영상
+images/             프로젝트 썸네일, 배경 영상, 히어로 포스터
 ```
 
 **섹션 순서**
@@ -50,7 +49,9 @@ images/             프로젝트 썸네일, 스킬 아이콘, 배경 영상
   각 항목은 `title / tech / role / period / team / img / links / content` 로 구성되며,
   `content`는 **문제 상황 → 내가 맡은 일 → 해결 방법 → 결과 → 배운 점** 순서로 작성합니다.
 - **프로젝트 카드** : `index.html` 의 `#projects-section` 영역을 수정합니다.
-- **스킬** : `index.html` 의 `#skills-section` 영역. 숙련도는 `Core / Working / Supporting` 3단계로 구분합니다.
+- **스킬** : `index.html` 의 `#skills-section` 영역. 블루프린트 노드 형태이며
+  `.bp-tier` (티어) → `.bp-node` (개별 기술) 구조입니다. 노드 하단의 `.bp-datapin` 이 사용 프로젝트입니다.
+  숙련도 클래스는 `core` / `work` / `sub` 세 가지입니다.
 - **책 · 강의 목록** : `js/main.js` 맨 아래의 `learningData` 를 수정합니다.
 
   ```js
@@ -92,11 +93,59 @@ cd KINGWONWOO.github.io
 python -m http.server 8000   # http://localhost:8000
 ```
 
+## 미디어 파일 관리
+
+배경 영상과 이미지는 **압축된 상태로 커밋**되어 있습니다. 원본으로 되돌리지 마세요.
+
+| | 압축 전 | 압축 후 |
+|---|---|---|
+| `images/video.mp4` | 94 MB (1920×1080, 7.5 Mbps) | **4.2 MB** (1280×720, 24fps, CRF 36, 무음) |
+| 이미지 전체 | 13 MB | **1.4 MB** |
+| 첫 로드 (데스크톱) | 약 106 MB | **6.1 MB** |
+| 첫 로드 (모바일) | 약 106 MB | **2.0 MB** (영상 미로드) |
+
+영상을 교체할 때는 아래처럼 다시 인코딩하세요.
+
+```bash
+ffmpeg -i 원본.mp4 -an -vf "scale=1280:-2,fps=24" \
+       -c:v libx264 -preset fast -crf 36 -pix_fmt yuv420p \
+       -movflags +faststart images/video.mp4
+
+# 포스터 (모바일·저속 회선에서 영상 대신 표시)
+ffmpeg -ss 3 -i images/video.mp4 -frames:v 1 -q:v 6 images/hero-poster.jpg
+```
+
+영상은 **데스크톱에서만** 로드합니다. 모바일과 데이터 절약 모드에서는 `hero-poster.jpg` 한 장만 씁니다.
+
 ## 배포
 
 `main` 브랜치에 push 하면 `.github/workflows/static.yml` 이 GitHub Pages로 자동 배포합니다. (최대 5분 소요)
 
-### 배포가 안 될 때 확인할 것
+### 미디어 파일 관리
+
+배경 영상과 이미지는 **압축된 상태로 커밋**되어 있습니다. 원본으로 되돌리지 마세요.
+
+| | 압축 전 | 압축 후 |
+|---|---|---|
+| `images/video.mp4` | 94 MB (1920×1080, 7.5 Mbps) | **4.2 MB** (1280×720, 24fps, CRF 36, 무음) |
+| 이미지 전체 | 13 MB | **1.4 MB** |
+| 첫 로드 (데스크톱) | 약 106 MB | **6.1 MB** |
+| 첫 로드 (모바일) | 약 106 MB | **2.0 MB** (영상 미로드) |
+
+영상을 교체할 때는 아래처럼 다시 인코딩하세요.
+
+```bash
+ffmpeg -i 원본.mp4 -an -vf "scale=1280:-2,fps=24" \
+       -c:v libx264 -preset fast -crf 36 -pix_fmt yuv420p \
+       -movflags +faststart images/video.mp4
+
+# 포스터 (모바일·저속 회선에서 영상 대신 표시)
+ffmpeg -ss 3 -i images/video.mp4 -frames:v 1 -q:v 6 images/hero-poster.jpg
+```
+
+영상은 **데스크톱에서만** 로드합니다. 모바일과 데이터 절약 모드에서는 `hero-poster.jpg` 한 장만 씁니다.
+
+## 배포가 안 될 때 확인할 것
 
 이 저장소는 `congchu/web-porfolio` 를 **포크**한 것이라, 과거에 아래 두 가지 문제로 배포가 멈춘 적이 있습니다.
 

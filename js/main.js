@@ -872,6 +872,9 @@ VR에서 낮은 프레임은 곧 멀미로 이어지기 때문에, 표현 품질
       }, 400);
   };
 
+  // 딥링크(#project/…)에서 유효한 id 인지 확인하기 위해 노출
+  window.__projectIds = Object.keys(projectData);
+
   // 기존 템플릿 로직
   $(window).on('load', function() { $('#ftco-loader').removeClass('show'); });
   AOS.init({ duration: 800, easing: 'slide' });
@@ -901,6 +904,8 @@ $(document).keyup(function(e) {
 
 /* ======================================================================
    Learning — 읽은 책 · 수강한 강의
+   언리얼 콘텐츠 브라우저 형태로 표시합니다. (좌: 폴더 트리 / 중앙: 에셋 그리드 / 우: 상세)
+
    ⚠️ 아래 데이터는 예시입니다. 실제로 읽은 책 / 수강한 강의로 교체하세요.
       교체 후 index.html 의 .sample-notice 안내 박스를 삭제하면 됩니다.
 
@@ -1032,51 +1037,135 @@ $(document).keyup(function(e) {
     ]
   };
 
-  const STATUS_LABEL = { done: "완독", doing: "읽는 중", plan: "예정" };
-  const STATUS_LABEL_COURSE = { done: "수료", doing: "수강 중", plan: "예정" };
+  var CATS = [
+    { key: 'books',   label: '읽은 책' },
+    { key: 'courses', label: '수강한 강의' }
+  ];
+  var STATUS_LABEL = {
+    books:   { done: '완독', doing: '읽는 중', plan: '예정' },
+    courses: { done: '수료', doing: '수강 중', plan: '예정' }
+  };
 
-  function cardHTML(item, isCourse) {
-    const label = (isCourse ? STATUS_LABEL_COURSE : STATUS_LABEL)[item.status] || "";
-    return `
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="learn-card">
-          <div class="learn-top">
-            <span class="learn-kind">${item.tag}</span>
-            <span class="learn-status ${item.status}">${label}</span>
-          </div>
-          <h4>${item.title}</h4>
-          <p class="learn-meta">${item.author}${item.year ? " · " + item.year : ""}</p>
-          <p class="learn-note">${item.note}</p>
-          <span class="learn-apply">${item.apply}</span>
-        </div>
-      </div>`;
-  }
+  var $tree, $grid, $detail, $count, $crumb, $search;
+  var cat = 'books', selected = 0, query = '';
 
-  function renderLearning() {
-    const $tabs = $('#learn-tabs');
-    if (!$tabs.length) return;
+  function esc(v) { return String(v == null ? '' : v); }
 
-    const books = learningData.books || [];
-    const courses = learningData.courses || [];
-
-    $tabs.html(`
-      <button class="learn-tab active" data-panel="learn-books">읽은 책<span class="count">${books.length}</span></button>
-      <button class="learn-tab" data-panel="learn-courses">수강한 강의<span class="count">${courses.length}</span></button>
-    `);
-
-    $('#learn-books-list').html(books.map(function (b) { return cardHTML(b, false); }).join(''));
-    $('#learn-courses-list').html(courses.map(function (c) { return cardHTML(c, true); }).join(''));
-
-    $tabs.on('click', '.learn-tab', function () {
-      const target = $(this).data('panel');
-      $tabs.find('.learn-tab').removeClass('active');
-      $(this).addClass('active');
-      $('.learn-panel').removeClass('active');
-      $('#' + target).addClass('active');
+  function filtered() {
+    var list = (learningData[cat] || []).map(function (it, i) {
+      var o = {}; for (var k in it) o[k] = it[k]; o._i = i; return o;
+    });
+    if (!query) return list;
+    var q = query.toLowerCase();
+    return list.filter(function (it) {
+      return (it.title + ' ' + it.author + ' ' + it.tag).toLowerCase().indexOf(q) >= 0;
     });
   }
 
-  $(function () { renderLearning(); });
+  function label(item) { return (STATUS_LABEL[cat] || {})[item.status] || ''; }
+
+  function renderTree() {
+    var html = '<div class="cb-root"><i class="cb-caret">▾</i> Learning</div>';
+    CATS.forEach(function (c) {
+      var n = (learningData[c.key] || []).length;
+      html += '<button type="button" class="cb-folder' + (c.key === cat ? ' active' : '') +
+              '" data-cat="' + c.key + '">' +
+              '<i class="cb-folder-icon" aria-hidden="true"></i>' +
+              '<span>' + c.label + '</span><em>' + n + '</em></button>';
+    });
+    $tree.html(html);
+  }
+
+  function renderGrid() {
+    var list = filtered();
+    if (!list.length) {
+      $grid.html('<p class="cb-empty">검색 결과가 없습니다.</p>');
+      $detail.html('');
+      $count.text('0 items');
+      return;
+    }
+    if (selected >= list.length) selected = 0;
+
+    var html = list.map(function (it, n) {
+      return '<div class="cb-item' + (n === selected ? ' selected' : '') + '" role="option" tabindex="0"' +
+             ' aria-selected="' + (n === selected) + '" data-n="' + n + '">' +
+             '  <div class="cb-thumb">' +
+             '    <span class="cb-thumb-tag">' + esc(it.tag) + '</span>' +
+             '    <span class="cb-dot ' + esc(it.status) + '" title="' + label(it) + '"></span>' +
+             '    <span class="cb-strip ' + esc(it.status) + '"></span>' +
+             '  </div>' +
+             '  <div class="cb-name">' + esc(it.title) + '</div>' +
+             '  <div class="cb-sub">' + esc(it.author) + '</div>' +
+             '</div>';
+    }).join('');
+
+    $grid.html(html);
+    $count.text(list.length + ' items');
+    renderDetail(list[selected]);
+  }
+
+  function renderDetail(it) {
+    if (!it) { $detail.html(''); return; }
+    $detail.html(
+      '<div class="cb-d-head">' +
+      '  <span class="cb-d-kind">' + esc(it.tag) + '</span>' +
+      '  <span class="learn-status ' + esc(it.status) + '">' + label(it) + '</span>' +
+      '</div>' +
+      '<h4 class="cb-d-title">' + esc(it.title) + '</h4>' +
+      '<ul class="detail-meta">' +
+      '  <li><span>' + (cat === 'books' ? '저자' : '강사') + '</span><strong>' + esc(it.author) + '</strong></li>' +
+      '  <li><span>시기</span><strong>' + esc(it.year || '-') + '</strong></li>' +
+      '</ul>' +
+      '<p class="cb-d-note">' + esc(it.note) + '</p>' +
+      '<div class="cb-d-apply"><span>APPLIED</span>' + esc(it.apply) + '</div>'
+    );
+  }
+
+  function select(n) {
+    selected = n;
+    $grid.children().removeClass('selected').attr('aria-selected', 'false');
+    var $el = $grid.children().eq(n).addClass('selected').attr('aria-selected', 'true');
+    renderDetail(filtered()[n]);
+    return $el;
+  }
+
+  function init() {
+    $tree = $('#cb-tree'); $grid = $('#cb-grid'); $detail = $('#cb-detail');
+    $count = $('#cb-count'); $crumb = $('#cb-crumb'); $search = $('#cb-search');
+    if (!$grid.length) return;
+
+    renderTree();
+    renderGrid();
+
+    $tree.on('click', '.cb-folder', function () {
+      cat = this.getAttribute('data-cat');
+      selected = 0;
+      var c = CATS.filter(function (x) { return x.key === cat; })[0];
+      if (c && $crumb.length) $crumb.text(c.label);
+      renderTree();
+      renderGrid();
+    });
+
+    $grid.on('click', '.cb-item', function () { select(+this.getAttribute('data-n')); });
+
+    // 키보드: 방향키로 이동, Enter/Space 로 선택
+    $grid.on('keydown', '.cb-item', function (e) {
+      var n = +this.getAttribute('data-n'), total = $grid.children().length, next = null;
+      if (e.key === 'ArrowRight') next = Math.min(n + 1, total - 1);
+      else if (e.key === 'ArrowLeft') next = Math.max(n - 1, 0);
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(n); return; }
+      if (next !== null) { e.preventDefault(); select(next).focus(); }
+    });
+
+    var timer = null;
+    $search.on('input', function () {
+      var v = this.value;
+      clearTimeout(timer);
+      timer = setTimeout(function () { query = v.trim(); selected = 0; renderGrid(); }, 140);
+    });
+  }
+
+  $(init);
 
 })(jQuery);
 
@@ -1333,4 +1422,106 @@ $(document).keyup(function(e) {
   });
 
   hero.classList.add('vm-lit');
+})(jQuery);
+
+
+/* ======================================================================
+   배경 영상 로딩 정책
+   94MB 원본을 무조건 받게 하지 않습니다.
+   - 모바일 / 데이터 절약 모드 : 포스터 이미지 한 장으로 끝
+   - 그 외                     : 영상을 붙여 재생
+   ====================================================================== */
+(function () {
+  "use strict";
+
+  var v = document.getElementById('bg-video');
+  if (!v) return;
+
+  var src = v.getAttribute('data-src');
+  if (!src) return;
+
+  var wide = !window.matchMedia || window.matchMedia('(min-width: 768px)').matches;
+  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+  var saveData = conn.saveData === true;
+  var slow = /(^|-)2g$/.test(conn.effectiveType || '');
+
+  if (!wide || saveData || slow) return;   // 포스터만 사용
+
+  var source = document.createElement('source');
+  source.src = src;
+  source.type = 'video/mp4';
+  v.appendChild(source);
+  v.load();
+
+  var pr = v.play();
+  if (pr && pr.catch) pr.catch(function () {});
+})();
+
+
+/* ======================================================================
+   프로젝트 딥링크 (#project/<id>) · 키보드 접근성
+   - 카드를 열면 주소가 바뀌어 특정 프로젝트를 링크로 공유할 수 있습니다.
+   - 브라우저 뒤로가기로 상세를 닫습니다.
+   - 카드를 Tab 으로 이동하고 Enter / Space 로 열 수 있습니다.
+   ====================================================================== */
+(function ($) {
+  "use strict";
+
+  var open = window.expandProject;
+  var close = window.closeProject;
+  if (typeof open !== 'function' || typeof close !== 'function') return;
+
+  var canPush = !!(window.history && window.history.pushState);
+
+  function validId(id) {
+    var ids = window.__projectIds || [];
+    return ids.indexOf(id) >= 0;
+  }
+  function idFromHash() {
+    var m = /^#project\/([A-Za-z0-9_-]+)$/.exec(window.location.hash || '');
+    return m && validId(m[1]) ? m[1] : null;
+  }
+
+  window.expandProject = function (id, fromHistory) {
+    if (!validId(id)) return;
+    open(id);
+    if (canPush && !fromHistory) {
+      history.pushState({ project: id }, '', '#project/' + id);
+    }
+  };
+
+  window.closeProject = function (fromHistory) {
+    close();
+    if (canPush && !fromHistory && /^#project\//.test(window.location.hash || '')) {
+      history.pushState({}, '', window.location.pathname + window.location.search);
+    }
+  };
+
+  window.addEventListener('popstate', function () {
+    var id = idFromHash();
+    if (id) { window.expandProject(id, true); }
+    else { window.closeProject(true); }
+  });
+
+  $(function () {
+    // 키보드로 카드를 열 수 있게
+    $('.custom-project-card').attr({ tabindex: 0, role: 'button' })
+      .on('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+
+    // 주소에 프로젝트가 지정돼 있으면 열어 둔다
+    var id = idFromHash();
+    if (id) {
+      setTimeout(function () {
+        window.expandProject(id, true);
+        var el = document.getElementById('projects-section');
+        if (el) el.scrollIntoView();
+      }, 600);
+    }
+  });
+
 })(jQuery);
