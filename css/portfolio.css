@@ -641,15 +641,17 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 10px 26px rgba(0,0,0,0.55), 0 0 0 1px rgba(14,134,212,0.25);
 }
+/* 썸네일은 카드 너비와 무관하게 고정 높이 —
+   비율(aspect-ratio)로 잡으면 화면이 좁아질 때 이미지가 카드를 잡아먹습니다. */
 .pf-skill-thumb {
-  position: relative; width: 100%; aspect-ratio: 8 / 4.6;
+  position: relative; width: 100%; height: 160px;
   background: #101010;
   border-bottom: 1px solid var(--ue-line);
   overflow: hidden;
 }
 .pf-skill-thumb img {
   position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
   display: block;
   transition: opacity 0.3s ease;
 }
@@ -968,7 +970,15 @@ body {
   .viewport-hud { display: none; }
 }
 
+@media (max-width: 991.98px) {
+  .pf-skill-thumb { height: 170px; }
+}
+
 @media (max-width: 767.98px) {
+  /* 한 줄에 카드 하나만 놓이는 폭에서는 카드가 지나치게 넓어져
+     썸네일이 심하게 잘리므로, 카드 폭을 제한하고 가운데 정렬한다 */
+  .pf-skill-card { max-width: 420px; margin-left: auto; margin-right: auto; }
+  .pf-skill-thumb { height: 168px; }
   .pf-section { padding: 68px 0; }
   .pf-title { font-size: 27px; }
   .pf-head { margin-bottom: 38px; }
