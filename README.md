@@ -94,7 +94,26 @@ python -m http.server 8000   # http://localhost:8000
 
 ## 배포
 
-`main` 브랜치에 push 하면 GitHub Pages가 자동으로 반영합니다. (최대 5분 소요)
+`main` 브랜치에 push 하면 `.github/workflows/static.yml` 이 GitHub Pages로 자동 배포합니다. (최대 5분 소요)
+
+### 배포가 안 될 때 확인할 것
+
+이 저장소는 `congchu/web-porfolio` 를 **포크**한 것이라, 과거에 아래 두 가지 문제로 배포가 멈춘 적이 있습니다.
+
+1. **포크된 저장소는 Actions가 기본으로 꺼져 있습니다.**
+   저장소 → **Actions** 탭 → `I understand my workflows, go ahead and enable them` 클릭.
+2. **워크플로가 구버전 액션을 쓰면 실행이 거부됩니다.**
+   `actions/upload-artifact` v3 등이 지원 종료되어 실패했었고, 현재는 아래 버전으로 갱신해 두었습니다.
+
+   | 액션 | 버전 |
+   |---|---|
+   | `actions/checkout` | v4 |
+   | `actions/configure-pages` | v5 |
+   | `actions/upload-pages-artifact` | v3 |
+   | `actions/deploy-pages` | v4 |
+
+배포 상태는 **Actions** 탭에서 확인할 수 있고, 수동 실행은
+Actions → `Deploy static content to Pages` → **Run workflow** 로 가능합니다.
 
 ## Contact
 

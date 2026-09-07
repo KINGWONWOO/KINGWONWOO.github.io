@@ -1079,3 +1079,57 @@ $(document).keyup(function(e) {
   $(function () { renderLearning(); });
 
 })(jQuery);
+
+
+/* ======================================================================
+   뷰포트 상태 표시줄의 FPS / 프레임 시간 (에디터의 stat fps 흉내)
+   실제 렌더링 프레임을 측정하며, 히어로가 화면 밖으로 나가면 멈춥니다.
+   ====================================================================== */
+(function () {
+  "use strict";
+
+  var fpsEl = document.getElementById('vp-fps');
+  var msEl  = document.getElementById('vp-ms');
+  var hero  = document.getElementById('home-section');
+  if (!fpsEl || !msEl || !hero || !window.requestAnimationFrame) return;
+
+  var frames = 0, last = performance.now(), raf = null, running = false;
+
+  function loop(now) {
+    frames++;
+    var elapsed = now - last;
+    if (elapsed >= 500) {
+      var fps = frames * 1000 / elapsed;
+      fpsEl.textContent = Math.round(fps);
+      msEl.textContent  = (1000 / fps).toFixed(1);
+      frames = 0;
+      last = now;
+    }
+    raf = requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    frames = 0;
+    last = performance.now();
+    raf = requestAnimationFrame(loop);
+  }
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+  }
+
+  // 히어로가 보일 때만 측정
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(function (entries) {
+      entries[0].isIntersecting ? start() : stop();
+    }, { threshold: 0.05 }).observe(hero);
+  } else {
+    start();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+})();

@@ -58,9 +58,9 @@
             <source src="images/video.mp4" type="video/mp4">
         </video>
         <div class="hero-scrim"></div>
+        <div class="viewport-frame"></div>
 
         <div class="viewport-hud tl">PERSPECTIVE &nbsp;|&nbsp; LIT &nbsp;|&nbsp; <b>PORTFOLIO</b></div>
-        <div class="viewport-hud br">BUSAN, KR &nbsp;|&nbsp; <b>OPEN TO WORK</b></div>
 
         <div class="container hero-container">
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
@@ -97,6 +97,14 @@
             <span class="hero-scroll-label">SCROLL</span>
             <span class="hero-scroll-line"></span>
         </a>
+
+        <!-- 뷰포트 하단 상태 표시줄 -->
+        <div class="viewport-bar">
+            <span class="vb-item">BUSAN, KR &nbsp;|&nbsp; <b>OPEN TO WORK</b></span>
+            <span class="vb-item vb-stat">
+                <b id="vp-fps">--</b> FPS &nbsp;&nbsp; <b id="vp-ms">--</b> MS
+            </span>
+        </div>
     </section>
 
     <!-- ========================== 2. ABOUT ========================== -->
