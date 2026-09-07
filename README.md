@@ -49,9 +49,9 @@ images/             프로젝트 썸네일, 배경 영상, 히어로 포스터
   각 항목은 `title / tech / role / period / team / img / links / content` 로 구성되며,
   `content`는 **문제 상황 → 내가 맡은 일 → 해결 방법 → 결과 → 배운 점** 순서로 작성합니다.
 - **프로젝트 카드** : `index.html` 의 `#projects-section` 영역을 수정합니다.
-- **스킬** : `index.html` 의 `#skills-section` 영역. 블루프린트 노드 형태이며
-  `.bp-tier` (티어) → `.bp-node` (개별 기술) 구조입니다. 노드 하단의 `.bp-datapin` 이 사용 프로젝트입니다.
-  숙련도 클래스는 `core` / `work` / `sub` 세 가지입니다.
+- **스킬** : `index.html` 의 `#skills-section` 영역. 숙련도는 `Core / Working / Supporting` 3단계로 구분합니다.
+  각 카드의 로고 이미지는 `images/*_icon.png` (기본) 와 `images/*_icon_hover.png` (호버) 두 장이며,
+  화면 아래쪽에 있으므로 `loading="lazy"` 로 지연 로드합니다.
 - **책 · 강의 목록** : `js/main.js` 맨 아래의 `learningData` 를 수정합니다.
 
   ```js
