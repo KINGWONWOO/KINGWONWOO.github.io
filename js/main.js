@@ -7,20 +7,51 @@ AOS.init({
 
    "use strict";
 
-   // About 이미지 페이드 슬라이더 로직
-   var aboutSlider = function() {
-    var slides = $('.about-slide');
-    var currentSlide = 0;
-    
-    if(slides.length > 1) {
-        setInterval(function() {
-            $(slides[currentSlide]).removeClass('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            $(slides[currentSlide]).addClass('active');
-        }, 4000); // 4초마다 전환
-    }
-};
-aboutSlider();
+   // About 이미지 페이드 슬라이더
+   //  - 4.5초마다 다음 사진으로 자동 전환 (마지막 → 첫 사진으로 순환)
+   //  - 하단 인디케이터 클릭으로 직접 이동
+   //  - 마우스를 올리면 멈추고, 벗어나면 다시 재생
+   var aboutSlider = function () {
+       var $slides = $('.about-slide');
+       if ($slides.length < 2) return;
+
+       var $wrap = $slides.first().closest('.about-photo');
+       if (!$wrap.length) $wrap = $slides.first().parent();
+
+       var idx = 0, timer = null;
+       var DELAY = 4500;
+
+       var $dots = $('<div class="about-dots"></div>');
+       $slides.each(function (i) {
+           $('<button type="button" class="about-dot"></button>')
+               .attr('aria-label', (i + 1) + '번째 사진')
+               .toggleClass('active', i === 0)
+               .on('click', function () { go(i); restart(); })
+               .appendTo($dots);
+       });
+       $wrap.append($dots);
+
+       function go(n) {
+           $slides.eq(idx).removeClass('active');
+           $dots.children().eq(idx).removeClass('active');
+           idx = (n + $slides.length) % $slides.length;
+           $slides.eq(idx).addClass('active');
+           $dots.children().eq(idx).addClass('active');
+       }
+       function start() { timer = setInterval(function () { go(idx + 1); }, DELAY); }
+       function stop() { clearInterval(timer); }
+       function restart() { stop(); start(); }
+
+       $wrap.on('mouseenter', stop).on('mouseleave', restart);
+
+       // 다른 탭에 있는 동안에는 전환을 멈춰 둔다
+       $(document).on('visibilitychange', function () {
+           if (document.hidden) { stop(); } else { restart(); }
+       });
+
+       start();
+   };
+   aboutSlider();
 
 
 
