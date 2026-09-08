@@ -1643,3 +1643,91 @@ $(document).keyup(function(e) {
   show(0, true);
 
 })(jQuery);
+
+
+/* ======================================================================
+   Side Projects — 아웃라이너 패널
+   언리얼 아웃라이너처럼 [Item Label | Type] 두 컬럼 목록으로 표시합니다.
+   행을 클릭하면 기존 상세 뷰가 열립니다.
+   ====================================================================== */
+(function ($) {
+  "use strict";
+
+  // 표시 순서 + 아웃라이너에 쓸 타입 라벨
+  var SIDE = [
+    { id: 'light_shadow',  type: 'NiagaraSystem' },
+    { id: 'othello',       type: 'StaticMesh · Blueprint' },
+    { id: 'laonzena',      type: 'UnityScene · VR' },
+    { id: 'nier',          type: 'LightingScenario' },
+    { id: 'face_app',      type: 'PythonScript' },
+    { id: 'web_photobook', type: 'WebApp · React' },
+    { id: 'Udemy',         type: 'NiagaraSystem · Study' }
+  ];
+
+  var data = window.__projectData;
+  var $body = $('#ol-body');
+  if (!data || !$body.length) return;
+
+  var items = SIDE.filter(function (x) { return data[x.id]; })
+                  .map(function (x) {
+                    var p = data[x.id];
+                    return { id: x.id, type: x.type, title: p.title, img: p.img, tech: p.tech, role: p.role || '' };
+                  });
+
+  var $count = $('#ol-count'), $search = $('#ol-search');
+  var query = '';
+
+  function visible() {
+    if (!query) return items;
+    var q = query.toLowerCase();
+    return items.filter(function (it) {
+      return (it.title + ' ' + it.type + ' ' + it.tech).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+
+  function render() {
+    var list = visible();
+    if (!list.length) {
+      $body.html('<p class="ol-empty">검색 결과가 없습니다.</p>');
+      $count.text('0 items');
+      return;
+    }
+    $body.html(list.map(function (it, i) {
+      return '<div class="ol-row" role="listitem" tabindex="0" data-id="' + it.id + '"' +
+             ' style="--ol-i:' + i + '">' +
+             '  <span class="ol-c-eye" aria-hidden="true"><i class="ol-eye"></i></span>' +
+             '  <span class="ol-c-label">' +
+             '    <i class="ol-caret" aria-hidden="true"></i>' +
+             '    <span class="ol-thumb" style="background-image:url(' + it.img + ')"></span>' +
+             '    <span class="ol-name">' + it.title + '</span>' +
+             '    <span class="ol-role">' + it.role + '</span>' +
+             '  </span>' +
+             '  <span class="ol-c-type">' + it.type + '</span>' +
+             '</div>';
+    }).join(''));
+    $count.text(list.length + ' items');
+  }
+
+  function open(el) {
+    var id = el.getAttribute('data-id');
+    if (id && typeof window.expandProject === 'function') window.expandProject(id);
+  }
+
+  $body.on('click', '.ol-row', function () { open(this); });
+  $body.on('keydown', '.ol-row', function (e) {
+    var $rows = $body.children('.ol-row'), i = $rows.index(this);
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); open(this); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); $rows.eq(Math.min(i + 1, $rows.length - 1)).focus(); }
+    else if (e.key === 'ArrowUp')   { e.preventDefault(); $rows.eq(Math.max(i - 1, 0)).focus(); }
+  });
+
+  var timer = null;
+  $search.on('input', function () {
+    var v = this.value;
+    clearTimeout(timer);
+    timer = setTimeout(function () { query = v.trim(); render(); }, 140);
+  });
+
+  render();
+
+})(jQuery);
