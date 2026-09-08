@@ -525,6 +525,8 @@ contentWayPoint();
     noobgame: {
         title: "Noob : Multiplayer Battle",
         tech: "Unreal Engine 5 · C++ · Steam SDK · GAS",
+        badge: "Multiplayer",
+        result: '최대 <em class="ph">○</em>인 동시 플레이 세션 안정 동작',
         role: "서버-클라이언트 리플리케이션 · 어빌리티 시스템 설계",
         period: "20○○.○○ – 20○○.○○ (약 ○개월)",
         team: "팀 프로젝트 · ○명 (프로그래머 ○ / 아트 ○ / 기획 ○)",
@@ -571,6 +573,8 @@ contentWayPoint();
     capstone_vr: {
         title: "Capstone VR Training",
         tech: "Unreal Engine 5 · OpenXR · Meta Quest",
+        badge: "VR / Capstone",
+        result: 'Quest 실기 기준 <em class="ph">○○</em>FPS 유지',
         role: "VR 상호작용 시스템 설계 · 퍼포먼스 최적화",
         period: "20○○.○○ – 20○○.○○ (졸업작품)",
         team: "팀 프로젝트 · ○명",
@@ -616,6 +620,8 @@ VR에서 낮은 프레임은 곧 멀미로 이어지기 때문에, 표현 품질
     persona: {
         title: "Persona : LLM 기반 대화 NPC",
         tech: "Unreal Engine 5 · LLM API · Animation Blueprint",
+        badge: "AI NPC",
+        result: '응답 지연 <em class="ph">○.○</em>초 이내 유지',
         role: "실시간 NPC 대화 파이프라인 구현",
         period: "20○○.○○ – 20○○.○○ (개인 프로젝트)",
         team: "개인 프로젝트",
@@ -874,6 +880,7 @@ VR에서 낮은 프레임은 곧 멀미로 이어지기 때문에, 표현 품질
 
   // 딥링크(#project/…)에서 유효한 id 인지 확인하기 위해 노출
   window.__projectIds = Object.keys(projectData);
+  window.__projectData = projectData;
 
   // 기존 템플릿 로직
   $(window).on('load', function() { $('#ftco-loader').removeClass('show'); });
@@ -1523,5 +1530,116 @@ $(document).keyup(function(e) {
       }, 600);
     }
   });
+
+})(jQuery);
+
+
+/* ======================================================================
+   대표 프로젝트 쇼케이스
+   큰 미리보기 하나 + 아래 썸네일 스트립. 썸네일을 고르면 큰 화면이 바뀝니다.
+   데이터는 projectData 를 그대로 씁니다 (한 곳만 고치면 됩니다).
+   ====================================================================== */
+(function ($) {
+  "use strict";
+
+  var MAIN = ['noobgame', 'capstone_vr', 'persona'];
+
+  var data = window.__projectData;
+  var $wrap = $('#mp-showcase');
+  if (!data || !$wrap.length) return;
+
+  var items = MAIN.filter(function (id) { return data[id]; })
+                  .map(function (id) { var o = data[id]; o._id = id; return o; });
+  if (!items.length) { $wrap.hide(); return; }
+
+  var $a = $('#mp-shot-a'), $b = $('#mp-shot-b');
+  var $strip = $('#mp-strip');
+  var cur = 0, useA = true, timer = null;
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function renderStrip() {
+    $strip.html(items.map(function (it, i) {
+      return '<button type="button" class="mp-thumb' + (i === 0 ? ' active' : '') + '"' +
+             ' role="tab" aria-selected="' + (i === 0) + '" data-i="' + i + '">' +
+             '  <span class="mp-thumb-shot" style="background-image:url(' + it.img + ')">' +
+             '    <span class="mp-thumb-no">' + pad(i + 1) + '</span>' +
+             '  </span>' +
+             '  <span class="mp-thumb-name">' + it.title + '</span>' +
+             '  <span class="mp-thumb-tech">' + it.tech + '</span>' +
+             '</button>';
+    }).join(''));
+  }
+
+  function show(i, instant) {
+    if (i === cur && !instant) return;
+    cur = i;
+    var it = items[i];
+
+    // 큰 화면 크로스페이드 (두 레이어를 번갈아 사용)
+    var $next = useA ? $b : $a, $prev = useA ? $a : $b;
+    $next.css('background-image', 'url(' + it.img + ')');
+    if (instant) {
+      $next.addClass('on'); $prev.removeClass('on');
+    } else {
+      $next.addClass('on'); $prev.removeClass('on');
+    }
+    useA = !useA;
+
+    $('#mp-badge').text(it.badge || '');
+    $('#mp-eyebrow').text('MAIN PROJECT ' + pad(i + 1));
+    $('#mp-hud-index').text(pad(i + 1) + ' / ' + pad(items.length));
+    $('#mp-title').text(it.title);
+    $('#mp-tech').text(it.tech);
+    $('#mp-role').text(it.role || '');
+    $('#mp-result').html(it.result || '');
+
+    $('#mp-meta').html(
+      '<li><span>기간</span><strong>' + (it.period || '-') + '</strong></li>' +
+      '<li><span>규모</span><strong>' + (it.team || '-') + '</strong></li>'
+    );
+
+    $strip.children().removeClass('active').attr('aria-selected', 'false');
+    $strip.children().eq(i).addClass('active').attr('aria-selected', 'true');
+  }
+
+  function open() {
+    if (typeof window.expandProject === 'function') {
+      window.expandProject(items[cur]._id);
+    }
+  }
+
+  $strip.on('click', '.mp-thumb', function () {
+    stopAuto();
+    show(+this.getAttribute('data-i'));
+  });
+
+  $strip.on('keydown', '.mp-thumb', function (e) {
+    var i = +this.getAttribute('data-i'), next = null;
+    if (e.key === 'ArrowRight') next = (i + 1) % items.length;
+    else if (e.key === 'ArrowLeft') next = (i - 1 + items.length) % items.length;
+    if (next !== null) {
+      e.preventDefault();
+      stopAuto();
+      show(next);
+      $strip.children().eq(next).focus();
+    }
+  });
+
+  $('#mp-open').on('click', open);
+  $('#mp-viewport').on('click', open).on('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); open(); }
+  });
+
+  /* 자동 전환은 넣지 않습니다.
+     오른쪽 정보 패널을 읽는 도중에 화면이 바뀌면 오히려 방해가 됩니다.
+     원한다면 아래 두 줄의 주석을 풀어 사용하세요 (7초 간격, 조작하면 멈춤).
+       function startAuto() { if (!timer) timer = setInterval(function () { show((cur + 1) % items.length); }, 7000); }
+       $wrap.on('mouseenter', stopAuto); startAuto();
+  */
+  function stopAuto() { clearInterval(timer); timer = null; }
+
+  renderStrip();
+  show(0, true);
 
 })(jQuery);

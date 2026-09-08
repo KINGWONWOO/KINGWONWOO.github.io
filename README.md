@@ -48,7 +48,10 @@ images/             프로젝트 썸네일, 배경 영상, 히어로 포스터
 - **프로젝트 상세 내용** : `js/main.js` 상단의 `projectData` 객체를 수정합니다.
   각 항목은 `title / tech / role / period / team / img / links / content` 로 구성되며,
   `content`는 **문제 상황 → 내가 맡은 일 → 해결 방법 → 결과 → 배운 점** 순서로 작성합니다.
-- **프로젝트 카드** : `index.html` 의 `#projects-section` 영역을 수정합니다.
+- **대표 프로젝트 쇼케이스** : 별도 마크업 없이 `projectData` 에서 자동 생성됩니다.
+  어떤 3건을 올릴지는 `js/main.js` 의 `mainShowcase` 안 `MAIN` 배열로 정합니다.
+  큰 화면에 쓰이는 값은 `img` / `badge` / `result` / `period` / `team` 입니다.
+- **Side 프로젝트 카드** : `index.html` 의 `#projects-section` 영역을 수정합니다.
 - **스킬** : `index.html` 의 `#skills-section` 영역. 숙련도는 `Core / Working / Supporting` 3단계로 구분합니다.
   각 카드의 로고 이미지는 `images/*_icon.png` (기본) 와 `images/*_icon_hover.png` (호버) 두 장이며,
   화면 아래쪽에 있으므로 `loading="lazy"` 로 지연 로드합니다.

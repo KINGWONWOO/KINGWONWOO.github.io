@@ -394,46 +394,31 @@
                         <h3>Main Projects</h3>
                         <p>직접 설계하고 끝까지 구현한 대표 작업 3건</p>
                     </div>
-                    <div class="row mb-5">
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="custom-project-card ftco-animate" onclick="expandProject('noobgame')">
-                                <div class="cp-img" style="background-image: url(images/p-noob.jpg);">
-                                    <span class="cp-badge">Multiplayer</span>
-                                </div>
-                                <div class="cp-text">
-                                    <h3>Noob : Multiplayer Battle</h3>
-                                    <span class="cp-tech">UE5 · C++ · Steam SDK</span>
-                                    <p class="cp-role">서버-클라이언트 리플리케이션 · 어빌리티 시스템 설계</p>
-                                    <p class="cp-result">최대 <em class="ph">○</em>인 동시 플레이 세션 안정 동작</p>
-                                </div>
+                    <!-- 대표 프로젝트 쇼케이스 (js/main.js 의 mainShowcase 가 채웁니다) -->
+                    <div class="mp-showcase ftco-animate" id="mp-showcase">
+                        <div class="mp-stage">
+                            <div class="mp-viewport" id="mp-viewport" role="button" tabindex="0"
+                                 aria-label="선택한 프로젝트의 상세 보기">
+                                <div class="mp-shot on" id="mp-shot-a"></div>
+                                <div class="mp-shot" id="mp-shot-b"></div>
+                                <span class="mp-badge" id="mp-badge"></span>
+                                <span class="mp-hud-tl">PREVIEW</span>
+                                <span class="mp-hud-br" id="mp-hud-index">01 / 03</span>
+                                <span class="mp-open-hint">클릭하면 상세 내용이 열립니다</span>
+                            </div>
+
+                            <div class="mp-info">
+                                <span class="mp-eyebrow" id="mp-eyebrow">MAIN PROJECT 01</span>
+                                <h3 class="mp-title" id="mp-title"></h3>
+                                <span class="mp-tech" id="mp-tech"></span>
+                                <p class="mp-role" id="mp-role"></p>
+                                <p class="mp-result" id="mp-result"></p>
+                                <ul class="mp-meta" id="mp-meta"></ul>
+                                <button type="button" class="mp-open" id="mp-open">상세 보기</button>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="custom-project-card ftco-animate" onclick="expandProject('capstone_vr')">
-                                <div class="cp-img" style="background-image: url(images/p-capstone.jpg);">
-                                    <span class="cp-badge">VR / Capstone</span>
-                                </div>
-                                <div class="cp-text">
-                                    <h3>Capstone VR Training</h3>
-                                    <span class="cp-tech">UE5 · OpenXR · Meta Quest</span>
-                                    <p class="cp-role">VR 상호작용 시스템 설계 · 퍼포먼스 최적화</p>
-                                    <p class="cp-result">Quest 실기 기준 <em class="ph">○○</em>FPS 유지</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="custom-project-card ftco-animate" onclick="expandProject('persona')">
-                                <div class="cp-img" style="background-image: url(images/p-persona.jpg);">
-                                    <span class="cp-badge">AI NPC</span>
-                                </div>
-                                <div class="cp-text">
-                                    <h3>Persona</h3>
-                                    <span class="cp-tech">UE5 · LLM API · AnimBP</span>
-                                    <p class="cp-role">실시간 NPC 대화 파이프라인 구현</p>
-                                    <p class="cp-result">응답 지연 <em class="ph">○.○</em>초 이내 유지</p>
-                                </div>
-                            </div>
-                        </div>
+
+                        <div class="mp-strip" id="mp-strip" role="tablist" aria-label="대표 프로젝트 선택"></div>
                     </div>
 
                     <div class="pf-group-head ftco-animate">
