@@ -883,7 +883,7 @@ VR에서 낮은 프레임은 곧 멀미로 이어지기 때문에, 표현 품질
   window.__projectData = projectData;
 
   // 기존 템플릿 로직
-  $(window).on('load', function() { $('#ftco-loader').removeClass('show'); });
+  // (로더는 인트로 스플래시로 대체되었습니다 — introSplash 참조)
   AOS.init({ duration: 800, easing: 'slide' });
 
 })(jQuery);
@@ -1731,3 +1731,97 @@ $(document).keyup(function(e) {
   render();
 
 })(jQuery);
+
+
+/* ======================================================================
+   인트로 스플래시
+   언리얼 에디터가 뜰 때의 시작 화면을 흉내 냅니다.
+   - 진행률은 실제 페이지 로드에 연동됩니다 (window load 시 100%)
+   - 최소 1.2초 / 최대 3.6초 — 방문자를 붙잡아 두지 않습니다
+   - 아무 곳이나 클릭하거나 Esc 를 누르면 바로 건너뜁니다
+   - 같은 탭에서 다시 방문하면 표시하지 않습니다 (sessionStorage)
+   ====================================================================== */
+(function () {
+  "use strict";
+
+  var el = document.getElementById('ue-splash');
+  if (!el) return;
+
+  var fill = document.getElementById('spl-fill');
+  var statusEl = document.getElementById('spl-status');
+  var pctEl = document.getElementById('spl-pct');
+
+  var STEPS = [
+    { at: 0,  text: 'INITIALIZING ENGINE' },
+    { at: 28, text: 'LOADING LVL_PORTFOLIO' },
+    { at: 52, text: 'COMPILING SHADERS' },
+    { at: 74, text: 'BUILDING CONTENT BROWSER' },
+    { at: 94, text: 'READY' }
+  ];
+
+  var MIN_MS = 1200, MAX_MS = 3600;
+  var started = Date.now();
+  var pct = 0, loaded = false, finished = false, raf = null;
+
+  function seen() {
+    try { return sessionStorage.getItem('kw_splash') === '1'; } catch (e) { return false; }
+  }
+  function mark() {
+    try { sessionStorage.setItem('kw_splash', '1'); } catch (e) {}
+  }
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    cancelAnimationFrame(raf);
+    setPct(100);
+    mark();
+    setTimeout(function () {
+      el.classList.add('done');
+      document.body.classList.remove('splash-on');
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 700);
+    }, 260);
+  }
+
+  function setPct(v) {
+    pct = Math.max(pct, Math.min(v, 100));
+    if (fill) fill.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+    if (statusEl) {
+      for (var i = STEPS.length - 1; i >= 0; i--) {
+        if (pct >= STEPS[i].at) { statusEl.textContent = STEPS[i].text; break; }
+      }
+    }
+  }
+
+  // 같은 탭에서 재방문 / 애니메이션 최소화 설정 → 건너뛴다
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (seen() || reduce) {
+    el.classList.add('done');
+    if (el.parentNode) el.parentNode.removeChild(el);
+    return;
+  }
+
+  document.body.classList.add('splash-on');
+
+  function tick() {
+    var elapsed = Date.now() - started;
+    // 로드가 끝나기 전까지는 92% 까지만 차오른다
+    var target = loaded ? 100 : Math.min(92, (elapsed / MIN_MS) * 92);
+    setPct(pct + (target - pct) * 0.14);
+
+    if (loaded && pct > 99.4 && elapsed >= MIN_MS) { finish(); return; }
+    if (elapsed >= MAX_MS) { finish(); return; }
+    raf = requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'complete') loaded = true;
+  else window.addEventListener('load', function () { loaded = true; });
+
+  el.addEventListener('click', finish);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') finish();
+  });
+
+  raf = requestAnimationFrame(tick);
+})();

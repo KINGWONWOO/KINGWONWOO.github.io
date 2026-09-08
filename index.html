@@ -455,6 +455,7 @@
 
                         <div class="ue-status"><span id="ol-count">0 items</span></div>
                     </div>
+                </div>
 
                 <div id="expanded-project-view" class="transition-zone hidden">
                     <div class="expanded-main-content">
@@ -630,10 +631,33 @@
         </div>
     </footer>
 
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#3e64ff" />
-        </svg></div>
+    <!-- 인트로 스플래시 (js/main.js 의 introSplash) -->
+    <div id="ue-splash" class="ue-splash" role="status" aria-live="polite" aria-label="로딩 중">
+        <div class="spl-grid" aria-hidden="true"></div>
+
+        <div class="spl-body">
+            <svg class="spl-mark" viewBox="0 0 120 120" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                    <path class="spl-cube" pathLength="1" d="M60 12 L102 36 L102 84 L60 108 L18 84 L18 36 Z"/>
+                    <path class="spl-cube" pathLength="1" d="M18 36 L60 60 L102 36 M60 60 L60 108"/>
+                </g>
+            </svg>
+
+            <div class="spl-title">KANGWONWOO</div>
+            <div class="spl-sub">GAME CLIENT PROGRAMMER &nbsp;·&nbsp; PORTFOLIO</div>
+
+            <div class="spl-bar"><i id="spl-fill"></i></div>
+            <div class="spl-row">
+                <span id="spl-status">INITIALIZING ENGINE</span>
+                <span id="spl-pct">0%</span>
+            </div>
+        </div>
+
+        <div class="spl-foot">
+            <span>UNREAL ENGINE 5 &nbsp;·&nbsp; C++</span>
+            <span class="spl-skip">클릭하면 건너뜁니다</span>
+        </div>
+    </div>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
